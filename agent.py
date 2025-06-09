@@ -25,20 +25,25 @@ class Memory():
     def get_scratchpad(self) -> str:
         """Vrátí celý scratchpad jako text."""
         return "\n".join(self.scratchpad)
+    
+    def clear(self):
+        """Vymaže scratchpad."""
+        self.scratchpad = []
 
 class MyAgentExecutor():
-    def __init__(self, agent: Agent, output_parser: AgentOutputParser, memory: Memory = None, tools: list[Tool] = [], logging: bool = True):
+    def __init__(self, agent: Agent, output_parser: AgentOutputParser, memory: Memory = Memory(), tools: list[Tool] = [], logging: bool = True):
         self.agent = agent
         self.output_parser = output_parser
         self.tools = tools
         self.logging = logging
+        self.memory = memory
 
     def _process_step(self, inputs: dict) -> tuple:
         """Zpracuje vstup a vrátí (action, thought)."""
         prompt_text = self.agent.prompt.format(
             input=inputs["input"],
             tools=inputs["tools"],
-            agent_scratchpad=inputs["agent_scratchpad"],
+            agent_scratchpad=self.memory.get_scratchpad(),
             last_thought=inputs.get("last_thought", "")
         )
         response = self.agent.llm.invoke(prompt_text)
@@ -60,10 +65,18 @@ class MyAgentExecutor():
             if isinstance(action, AgentFinish):
                 return action.return_values["output"]
             elif isinstance(action, AgentAction):
-                tool_output = next((tool.func(action.tool_input) for tool in self.tools if tool.name == action.tool), None)
+                # Pokud je tool_input seznam (více argumentů), rozbal je při volání funkce
+                tool_output = None
+                for tool in self.tools:
+                    if tool.name == action.tool:
+                        if isinstance(action.tool_input, list):
+                            tool_output = tool.func(*action.tool_input)
+                        else:
+                            tool_output = tool.func(action.tool_input)
+                        break
                 if tool_output is None:
-                    inputs["agent_scratchpad"] += f"\nObservation: {action.tool}({action.tool_input}) = Error: Tool not found!\n"
+                    self.memory.add_observation(f"Observation: {action.tool}({action.tool_input}) = Error: Tool not found!")
                 else:
-                    inputs["agent_scratchpad"] += f"\nObservation: {action.tool}({action.tool_input}) = {tool_output}\n"
+                    self.memory.add_observation(f"Observation: {action.tool}({action.tool_input}) = {tool_output}")
             else:
                 raise ValueError(f"Unexpected output type: {type(action)}")

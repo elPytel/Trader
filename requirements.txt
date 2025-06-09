@@ -1,7 +1,10 @@
-pandas
 numpy
+pytest
+pandas
+argparse
+yfinance
 requests
 matplotlib
+basic-colors
 scikit-learn
-yfinance
 langchain-openai

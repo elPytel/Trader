@@ -186,7 +186,6 @@ def run():
         inputs = {
             "input": query,
             "tools": tools_str,
-            "agent_scratchpad": agent_scratchpad,
             "last_thought": ""
         }
 

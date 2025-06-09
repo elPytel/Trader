@@ -9,11 +9,11 @@ class StrictOutputParser(AgentOutputParser):
         Extrahuje pouze první řádek po "Thought:" (tj. samotnou myšlenku, ne další řádky).
         Pokud není myšlenka nalezena, vrací prázdný řetězec.
         """
-        # Najdi "Thought:" a vezmi jen první řádku po něm (ignoruj další řádky)
-        thought_match = re.search(r"Thought:\s*(.*)", text)
-        if thought_match:
-            # Rozděl podle nového řádku a vezmi jen první část
-            return thought_match.group(1).splitlines()[0].strip()
+        # Najdi "Thought:" a vezmi jen první řádek po něm (ignoruj další řádky)
+        # Pokud je "Thought:" až za Final Answer, použij poslední výskyt
+        matches = list(re.finditer(r"Thought:\s*(.*)", text))
+        if matches:
+            return matches[-1].group(1).splitlines()[0].strip()
         return ""
     
     def get_final_answer(self, text: str) -> str:
@@ -26,64 +26,52 @@ class StrictOutputParser(AgentOutputParser):
             return final_answer_match.group(1).strip()
         return ""
     
-    def get_action_and_input(self, text: str) -> tuple[str, str]:
+    def get_action_and_input(self, text: str) -> tuple[str, str | list]:
         """
         Extrahuje název akce a vstup z textu.
         Pokud není akce nalezena, vrací prázdný řetězec pro akci a vstup.
         """
-        """
-        # Akceptuje i variantu bez "Thought:" a různé varianty Action Input
-        # 1. Action: get_stock_price\n   Action Input: AAPL
-        # 2. Action: get_stock_price('AAPL')
-        # 3. Action: get_stock_price("AAPL")
-        # 4. Action: get_stock_price\n   Action Input: 'AAPL'
-        # 5. Action: get_stock_price\n   Action Input: "AAPL"
-        # 6. Action: get_stock_price\n   Action Input: AAPL
-        # 7. Action: None
-        # 8. Action: get_stock_price
-        # 9. Action: get_stock_price()
-        # 10. Action: get_stock_price
-        # 11. Action: get_stock_price('AAPL', ...)
-        # 12. Action: get_stock_price: AAPL
-        # 13. Action: get_stock_price - AAPL
-        # 14. Action: get_stock_price = AAPL
-        """
-        # Nejprve zkusit formát s Action Input
+        # Nejprve zkusit formát s Action Input (včetně více argumentů oddělených čárkou)
         pattern = re.compile(
-            r"Action:\s*(\w+)\s*^ *Action Input:\s*['\"]?([^'\"]+)['\"]?",
+            r"Action:\s*(\w+)\s*^ *Action Input:\s*(.*)",
             re.MULTILINE | re.IGNORECASE
         )
         match = pattern.search(text)
         if match:
             tool = match.group(1).strip()
             raw_input = match.group(2).strip()
-            # Zpracuj vstup: rozděl podle čárek, odstraň uvozovky a mezery
-            if "," in raw_input:
-                args = [arg.strip().strip("'\"") for arg in raw_input.split(",")]
-                tool_input = args if len(args) > 1 else args[0]
+            # Pokud je to víc argumentů, rozděl podle čárky, jinak nech jako string
+            # Pokud je prázdný vstup, vrať prázdný string
+            if not raw_input:
+                tool_input = ""
+            elif "," in raw_input:
+                # Odstraň uvozovky a mezery kolem každého argumentu, ignoruj prázdné argumenty
+                args = [arg.strip().strip("'\"") for arg in raw_input.split(",") if arg.strip().strip("'\"")]
+                tool_input = args if len(args) > 1 else (args[0] if args else "")
             else:
                 tool_input = raw_input.strip("'\"")
             return tool, tool_input
         # fallback: Action: get_stock_price('AAPL')
         pattern2 = re.compile(
-            r"Action:\s*(\w+)\s*^ *Action Input:\s*(.*)",
+            r"Action:\s*(\w+)\((.*)\)",
             re.IGNORECASE
         )
         match2 = pattern2.search(text)
         if match2:
             tool = match2.group(1).strip()
             raw_input = match2.group(2).strip()
-            if raw_input:
-                args = [arg.strip().strip("'\"") for arg in raw_input.split(",")]
-                tool_input = args if len(args) > 1 else args[0]
-            else:
+            if not raw_input:
                 tool_input = ""
+            elif "," in raw_input:
+                args = [arg.strip().strip("'\"") for arg in raw_input.split(",") if arg.strip().strip("'\"")]
+                tool_input = args if len(args) > 1 else (args[0] if args else "")
+            else:
+                tool_input = raw_input.strip("'\"")
             return tool, tool_input
 
         return "", ""
 
     def parse(self, text: str) -> AgentAction | AgentFinish:
-        
         text = text.strip()
         # Pokud je přítomen Final Answer, vždy jej preferuj
         if "Final Answer:" in text:
