@@ -5,13 +5,13 @@
   - [Stránka](#stránka)
 - [Obchodování](#obchodování)
   - [Slovníček pojmů](#slovníček-pojmů)
-  - [Algoritmické obchodování v praxi](#algoritmické-obchodování-v-praxi)
+  - [Algoritmické obchodování - platformy](#algoritmické-obchodování---platformy)
     - [💻 Pine Script](#-pine-script)
     - [🧠 TradingView](#-tradingview)
+    - [🏦 IBKR (Interactive Brokers)](#-ibkr-interactive-brokers)
   - [TradingView](#tradingview)
     - [Pine Scriptu](#pine-scriptu)
       - [Jak ho použít:](#jak-ho-použít)
-    - [🏦 IBKR (Interactive Brokers)](#-ibkr-interactive-brokers)
   - [IBKR - Interactive Brokers](#ibkr---interactive-brokers)
     - [IBKR API](#ibkr-api)
       - [Příklad integrace v praxi](#příklad-integrace-v-praxi)
@@ -20,6 +20,9 @@
     - [Knihovny pro backtesting v Pythonu](#knihovny-pro-backtesting-v-pythonu)
       - [Ukázka s Backtesting.py](#ukázka-s-backtestingpy)
     - [Profesionální frameworky](#profesionální-frameworky)
+  - [Algoritmické obchodování - propojení platforem](#algoritmické-obchodování---propojení-platforem)
+    - [Přímé propojení přes Python + IBKR API](#přímé-propojení-přes-python--ibkr-api)
+    - [Krok po kroku:](#krok-po-kroku)
 
 
 ## Jak spustit aplikaci
@@ -37,10 +40,16 @@ Webová stránka bude dostupná na [http://127.0.0.1:5000/](http://127.0.0.1:500
 
 # Obchodování
 
-Jak vytvořit trading bota?
-Jak otestovat paper trading?
-Jak udělat analýzu obchodu na hystorických datech (aka backtesting)?
-Jak vytvořit nekorelované portfolio?
+- Jak vytvořit trading bota?
+  - Jak vytvořit strategii v Pine Scriptu?
+  - Jak udělat analýzu obchodu na historických datech (aka backtesting)?
+  - Odesílání příkazů:
+    - email/discord/webhook?
+    - na burzu (IBKR API)?
+- Jak otestovat Bota v paper tradingu?
+- Ostré obchodování
+- Jak vytvořit nekorelované portfolio?
+  - Výpočet korelace mezi strategiemi v backtestu
 
 ## Slovníček pojmů
 - **Broker** - prostředník pro obchodování na burze.
@@ -50,7 +59,9 @@ Jak vytvořit nekorelované portfolio?
 - **Paper trading** - simulované obchodování bez reálných peněz.
 - **Backtesting** - testování obchodní strategie na historických datech.
 
-## Algoritmické obchodování v praxi
+Algoritmické obchodování v praxi
+
+## Algoritmické obchodování - platformy
 
 ```css
 [ Pine Script ] → analýza, indikátory
@@ -94,6 +105,22 @@ Je to webová platforma pro analýzu trhů:
 „Chci sledovat RSI a MACD na grafu Bitcoinu a upozornění, když RSI < 30.“
 
 
+### 🏦 IBKR (Interactive Brokers)
+
+IBKR je reálný broker:
+- drží tvé peníze a pozice,
+- provádí příkazy na burze,
+- má přístup k reálným tržním datům,
+- má vlastní desktop aplikaci (TWS) a API pro automatizaci (např. Python).
+
+> [!note] 📌 Typické použití:
+„Můj Python bot pomocí IBKR API nakupuje akcie AAPL, když 10denní SMA překročí 50denní SMA.“
+
+✅ Přednosti:
+- přímé propojení s burzami,
+- reálné i simulované obchodování (paper trading),
+- přístup k téměř všem trhům na světě.
+
 ## TradingView
 
 [API Reference](https://www.tradingview.com/charting-library-docs/latest/api/)
@@ -116,23 +143,6 @@ Pine Script je jazyk pro skriptování, který se používá v TradingView pro v
 > [!note] 📌 Poznámka: 
 > TradingView používá Pine Script pouze uvnitř své platformy – tedy i když máš soubor s příponou .pine, mimo TradingView (např. v Pythonu nebo v jiném IDE) ho nespustíš.
 > Slouží čistě jako přenosný formát kódu mezi uživateli TradingView.
-
-
-### 🏦 IBKR (Interactive Brokers)
-
-IBKR je reálný broker:
-- drží tvé peníze a pozice,
-- provádí příkazy na burze,
-- má přístup k reálným tržním datům,
-- má vlastní desktop aplikaci (TWS) a API pro automatizaci (např. Python).
-
-> [!note] 📌 Typické použití:
-„Můj Python bot pomocí IBKR API nakupuje akcie AAPL, když 10denní SMA překročí 50denní SMA.“
-
-✅ Přednosti:
-- přímé propojení s burzami,
-- reálné i simulované obchodování (paper trading),
-- přístup k téměř všem trhům na světě.
 
 ## IBKR - Interactive Brokers
 
@@ -216,4 +226,71 @@ Příklady:
 - QuantConnect (cloud-based, Python + C#) – má i reálné nasazení
 - vectorbtpro – GPU-akcelerovaný, ideální pro optimalizace
 
+## Algoritmické obchodování - propojení platforem
 
+Omezení TradingView je v tom, že Pine Script běží jen na serverech TradingView. Může generovat signály a alerty, ale nemá API, které by přímo provádělo obchody u brokera.
+
+Nelze tedy napsat Pine Script → kliknout „Buy“ → a IBKR provede příkaz automaticky.
+
+✅ Co Pine Script umí:
+
+generovat alerty (např. e-mail, webhook, notifikaci).
+
+### Přímé propojení přes Python + IBKR API
+
+Pokud chceš automatizaci, musíš vzít TradingView signál → Python skript → IBKR API → reálný obchod.
+
+Obvykle to funguje takto:
+
+```mermaid
+graph LR
+    A[TradingView Pine Script] -->|alert| B[Webhook nebo email]
+    B -->|Python skript| C[IBKR API]
+    C -->|provedení obchodu| D[Burza]
+```
+
+### Krok po kroku:
+
+1. TradingView Pine Script
+
+```pinescript
+if crossover(sma20, sma50)
+    alert("BUY_SIGNAL", alert.freq_once_per_bar_close)
+```
+
+Generuje alert „BUY_SIGNAL“ na konci svíčky.
+
+2. TradingView webhook
+
+```json
+{
+    "alert": "BUY_SIGNAL"
+}
+```
+
+Nastavíš alert, který posílá HTTP POST request na tvůj Python server nebo cloud funkci (např. Flask).
+
+3. Python skript přijme webhook
+
+```python
+from flask import Flask, request
+from ib_insync import *
+
+app = Flask(__name__)
+ib = IB()
+ib.connect('127.0.0.1', 7497, clientId=1)
+
+@app.route('/tv_alert', methods=['POST'])
+def tv_alert():
+    data = request.json
+    if data['alert'] == 'BUY_SIGNAL':
+        contract = Stock('AAPL', 'SMART', 'USD')
+        ib.placeOrder(contract, MarketOrder('BUY', 10))
+    return "OK"
+
+app.run(port=5000)
+```
+
+4. IBKR API provede obchod
+
+Skript dostane signál a vytvoří příkaz přes IBKR TWS nebo IB Gateway.
