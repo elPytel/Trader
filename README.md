@@ -20,10 +20,13 @@
     - [Knihovny pro backtesting v Pythonu](#knihovny-pro-backtesting-v-pythonu)
       - [Ukázka s Backtesting.py](#ukázka-s-backtestingpy)
     - [Profesionální frameworky](#profesionální-frameworky)
+    - [Backtesting v TradingView](#backtesting-v-tradingview)
+      - [Co TradingView backtesting umí](#co-tradingview-backtesting-umí)
+      - [Omezení TradingView backtestingu](#omezení-tradingview-backtestingu)
+      - [Shrnutí](#shrnutí)
   - [Algoritmické obchodování - propojení platforem](#algoritmické-obchodování---propojení-platforem)
     - [Přímé propojení přes Python + IBKR API](#přímé-propojení-přes-python--ibkr-api)
     - [Krok po kroku:](#krok-po-kroku)
-
 
 ## Jak spustit aplikaci
 
@@ -222,19 +225,76 @@ print(stats)
 Když už chceš testovat portfolio strategií, ticková data, nebo režimy exekuce.
 
 Příklady:
-- Zipline / Zipline-live – integrovatelné s IBKR
-- QuantConnect (cloud-based, Python + C#) – má i reálné nasazení
-- vectorbtpro – GPU-akcelerovaný, ideální pro optimalizace
+- **Zipline** / **Zipline-live** – integrovatelné s **IBKR**
+- **QuantConnect** - (cloud-based, Python + C#) – má i reálné nasazení
+- **vectorbtpro** - GPU-akcelerovaný, ideální pro optimalizace
+
+### Backtesting v TradingView
+
+Základní struktura Pine Script strategie:
+```pinescript
+//@version=5
+strategy("SMA Crossover", overlay=true, initial_capital=10000, default_qty_type=strategy.percent_of_equity, default_qty_value=10)
+
+sma20 = ta.sma(close, 20)
+sma50 = ta.sma(close, 50)
+
+if ta.crossover(sma20, sma50)
+    strategy.entry("Long", strategy.long)
+
+if ta.crossunder(sma20, sma50)
+    strategy.close("Long")
+```
+
+`strategy()` místo `study()` = backtesting mód.
+
+`strategy.entry()` = otevírá simulovaný obchod.
+
+`strategy.close()` = zavírá obchod.
+
+TradingView automaticky počítá: zisky, ztráty, drawdown, výkonnostní metriky.
+
+#### Co TradingView backtesting umí
+
+Simulace historických obchodů podle definované strategie. Vizualizace equity křivky přímo na grafu.
+
+Výpočty:
+- Net profit, % zisku
+- Max drawdown
+- Počet obchodů, win rate
+- Sharpe ratio
+
+Můžeš nastavit:
+- kapitál,
+- velikost pozice (% účtu),
+- komise a poplatky,
+- režim market/limit order.
+
+#### Omezení TradingView backtestingu
+| Omezení	| Co to znamená |
+| --------- | -------------------------------------|
+| Pine Script	| Backtesting jen v rámci Pine Scriptu, žádné externí API |
+| Candle close	| Obchody jsou často simulovány na **close svíčky**, ne intraday |
+| Data	| Historie je dostupná jen podle plánu (některé data jen pár let) |
+| Portfolio	| ⚠️ Nelze backtestovat více aktiv dohromady s plnou interakcí (multi-asset strategie jsou omezené) |
+
+#### Shrnutí
+- ✅ TradingView = rychlý způsob, jak backtestovat strategie přímo na grafu.
+- ✅ Vhodné pro indikátory a jednoduché strategie.
+- ⚠️ Omezené pro portfolio strategie, ticková data nebo kompletní simulaci reálného účtu.
+
+> [!note]
+> Pokud chceš *realistický backtest* s více aktivy a pozicemi, budeš potřebovat **Python** + knihovnu (např. **Backtrader**, **vectorbt**).
 
 ## Algoritmické obchodování - propojení platforem
 
 Omezení TradingView je v tom, že Pine Script běží jen na serverech TradingView. Může generovat signály a alerty, ale nemá API, které by přímo provádělo obchody u brokera.
 
-Nelze tedy napsat Pine Script → kliknout „Buy“ → a IBKR provede příkaz automaticky.
+> [!warning] Nelze
+> tedy napsat Pine Script → kliknout „Buy“ → a IBKR provede příkaz automaticky.
 
 ✅ Co Pine Script umí:
-
-generovat alerty (např. e-mail, webhook, notifikaci).
+- generovat alerty (např. e-mail, webhook, notifikaci).
 
 ### Přímé propojení přes Python + IBKR API
 
@@ -293,4 +353,4 @@ app.run(port=5000)
 
 4. IBKR API provede obchod
 
-Skript dostane signál a vytvoří příkaz přes IBKR TWS nebo IB Gateway.
+Skript dostane signál a vytvoří příkaz přes [**IBKR TWS**](https://www.interactivebrokers.com/en/trading/tws.php) nebo **IB Gateway**.
