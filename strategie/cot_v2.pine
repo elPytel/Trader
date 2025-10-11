@@ -1,0 +1,170 @@
+//@version=2
+study("COT Index", shorttitle="COT index", precision=0)
+
+is_includeoptions = input(true, type=bool, title="Včetně opcí")
+
+nasobek = iff(isdaily,5,1)
+
+coticker =
+	  syminfo.root == "AUDUSD" ? "232741" :
+	  syminfo.root == "GBPUSD" ? "096742" :
+	  syminfo.root == "NZDUSD" ? "112741" :
+	  syminfo.root == "BRLUSD" ? "102741" :
+	  syminfo.root == "USDCAD" ? "090741" :
+	  syminfo.root == "USDCHF" ? "092741" :
+	  syminfo.root == "USDJPY" ? "097741" :
+	  syminfo.root == "USDMXN" ? "095741" :
+	  syminfo.root == "USDRUB" ? "089741" :
+	  syminfo.root == "USDZAR" ? "122741" :
+	  syminfo.root == "EURUSD" ? "099741" :
+	  syminfo.root == "FXE"    ? "099741" :
+	  syminfo.root == "E6"     ? "099741" :
+	  syminfo.root == "S6"     ? "092741" :
+	  syminfo.root == "J6"     ? "097741" :
+	  syminfo.root == "D6"     ? "090741" :
+	  syminfo.root == "6A"     ? "232741" :
+	  syminfo.root == "6B"     ? "299741" :
+	  syminfo.root == "N6"     ? "112741" :
+	  syminfo.root == "B6"     ? "102741" :
+	  syminfo.root == "M6"     ? "095741" :
+	  syminfo.root == "6C"     ? "090741" :
+	  syminfo.root == "YO"     ? "095741" :
+	  syminfo.root == "6M"     ? "095741" :
+	  syminfo.root == "6J"     ? "097741" :
+	  syminfo.root == "DXY"    ? "098662" :
+	  syminfo.root == "DX"     ? "098662" :
+	  syminfo.root == "GE"     ? "132741" :
+	  syminfo.root == "ED"     ? "132741" :
+	  syminfo.root == "6E"     ? "099741" :
+	  syminfo.root == "6S"     ? "092741" :
+	  syminfo.root == "6N"     ? "112741" :  
+
+	  syminfo.root == "ZC"     ? "002602" :
+	  syminfo.root == "C"      ? "002602" :
+	  syminfo.root == "ZS"     ? "005602" :
+	  syminfo.root == "S"      ? "005602" :
+	  syminfo.root == "ZM"     ? "026603" :
+	  syminfo.root == "ZL"     ? "007601" :
+	  syminfo.root == "BO"     ? "007601" :
+	  syminfo.root == "ZW"     ? "001602" :
+	  syminfo.root == "W"      ? "001602" :
+	  syminfo.root == "KE"     ? "001612" :
+	  syminfo.root == "ZO"     ? "004603" :
+	  syminfo.root == "ZR"     ? "039601" :
+
+	  syminfo.root == "COPPER" ? "085692" :
+	  syminfo.root == "HG"     ? "085692" :
+	  syminfo.root == "XAUUSD" ? "088691" :
+	  syminfo.root == "XAGUSD" ? "084691" :
+	  syminfo.root == "NUGT"   ? "088691" :
+	  syminfo.root == "GOLD"   ? "088691" :
+	  syminfo.root == "GLD"    ? "088691" :
+	  syminfo.root == "GC"     ? "088691" :
+	  syminfo.root == "SI"     ? "084691" :
+	  syminfo.root == "PL"     ? "076651" :
+	  syminfo.root == "PA"	   ? "075651" :
+
+	  syminfo.root == "LE"     ? "057642" :
+	  syminfo.root == "GF"     ? "061641" :
+	  syminfo.root == "HE"     ? "054642" :
+
+	  syminfo.root == "SPX"    ? "138741" :
+	  syminfo.root == "SPY"    ? "138741" :
+	  syminfo.root == "ES"     ? "13874A" :
+	  syminfo.root == "SP"     ? "138741" :
+	  syminfo.root == "MDY0"   ? "33874A" :
+	  syminfo.root == "NY"     ? "240741" :
+	  syminfo.root == "IUXX"   ? "209742" :
+	  syminfo.root == "DJY0"   ? "209742" :
+	  syminfo.root == "NQ"     ? "209742" :
+	  syminfo.root == "IUX"    ? "23977A" :
+	  syminfo.root == "IWM"    ? "23977A" :
+	  syminfo.root == "TNA"    ? "23977A" :
+	  syminfo.root == "RJ"     ? "23977A" :
+	  syminfo.root == "IDX"    ? "124601" :
+	  syminfo.root == "YM"     ? "124603" :
+	  syminfo.root == "RTY"    ? "23977A" :
+
+	  syminfo.root == "ZQ"     ? "045601" :
+	  syminfo.root == "ZT"     ? "042601" :
+	  syminfo.root == "ZF"     ? "044601" :
+	  syminfo.root == "ZN"     ? "043602" :
+	  syminfo.root == "ZB"     ? "020601" :
+	  syminfo.root == "TLT"    ? "020604" :
+
+	  syminfo.root == "VI"     ? "1170E1" :
+	  syminfo.root == "VIX"    ? "1170E1" :
+
+	  syminfo.root == "CL"     ? "067651" :
+	  syminfo.root == "BB"     ? "06741R" :
+	  syminfo.root == "HO"     ? "022651" :
+	  syminfo.root == "NG"     ? "023651" :
+	  syminfo.root == "RB"     ? "111659" :
+	  syminfo.root == "FL"     ? "025651" :
+	  syminfo.root == "USOIL"  ? "067651" :
+	  syminfo.root == "USO"    ? "067651" :
+	  syminfo.root == "WTICOUSD" ? "067651" :
+    
+	  syminfo.root == "CC"     ? "073732" :
+	  syminfo.root == "KC"     ? "083731" :
+	  syminfo.root == "CT"     ? "033661" :
+	  syminfo.root == "JO"     ? "040701" :
+	  syminfo.root == "SB"     ? "080732" :
+	  syminfo.root == "BD"     ? "050642" :
+	  syminfo.root == "BJ"     ? "063642" :
+	  ""
+
+codeL = "QUANDL:CFTC/"+coticker+"_F"+(is_includeoptions ? "O_L_ALL|" : "_L_ALL|")
+
+long_commL = security(codeL + "4", "W", close)
+short_commL = security(codeL + "5", "W", close)
+
+long_smalL = security(codeL + "8", "W", close)
+short_smalL = security(codeL + "9", "W", close)
+
+net_commL = long_commL - short_commL
+net_smalL = long_smalL - short_smalL
+
+
+max_comm_trL = highest(net_commL, 13 * nasobek)
+min_comm_trL = lowest(net_commL, 13 * nasobek)
+index_comm_trL = sma(100 * (net_commL - min_comm_trL) / (max_comm_trL - min_comm_trL),nasobek)
+max_comm_dvL = highest(net_commL, 26 * nasobek)
+min_comm_dvL = lowest(net_commL, 26 * nasobek)
+index_comm_dvL = sma(100 * (net_commL - min_comm_dvL) / (max_comm_dvL - min_comm_dvL),nasobek)
+max_comm_paL = highest(net_commL, 52 * nasobek)
+min_comm_paL = lowest(net_commL, 52 * nasobek)
+index_comm_paL = sma(100 * (net_commL - min_comm_paL) / (max_comm_paL - min_comm_paL),nasobek)
+max_comm_stL = highest(net_commL, 156 * nasobek)
+min_comm_stL = lowest(net_commL, 156 * nasobek)
+index_comm_stL = sma(100 * (net_commL - min_comm_stL) / (max_comm_stL - min_comm_stL),nasobek)
+
+max_smal_trL = highest(net_smalL, 13 * nasobek)
+min_smal_trL = lowest(net_smalL, 13 * nasobek)
+index_smal_trL = sma(100 * (net_smalL - min_smal_trL) / (max_smal_trL - min_smal_trL),nasobek)
+max_smal_dvL = highest(net_smalL, 26 * nasobek)
+min_smal_dvL = lowest(net_smalL, 26 * nasobek)
+index_smal_dvL = sma(100 * (net_smalL - min_smal_dvL) / (max_smal_dvL - min_smal_dvL),nasobek)
+max_smal_paL = highest(net_smalL, 52 * nasobek)
+min_smal_paL = lowest(net_smalL, 52 * nasobek)
+index_smal_paL = sma(100 * (net_smalL - min_smal_paL) / (max_smal_paL - min_smal_paL),nasobek)
+max_smal_stL = highest(net_smalL, 156 * nasobek)
+min_smal_stL = lowest(net_smalL, 156 * nasobek)
+index_smal_stL = sma(100 * (net_smalL - min_smal_stL) / (max_smal_stL - min_smal_stL),nasobek)
+
+
+hline(90, color=lime, linestyle=dashed, title="Horní extrém 13-26")
+hline(5, color=lime, linestyle=dashed, title="Dolní extrém 13-26")
+hline(75, color=maroon, linestyle=dashed, title="Horní extrém 52-156")
+hline(15, color=maroon, linestyle=dashed, title="Dolní extrém 52-156")
+
+
+plot(index_comm_trL, color = #00FFFF, title="Commercial 13", style=line, linewidth=2)
+plot(index_comm_dvL, color = green, title="Commercial 26", style=line, linewidth=2)
+plot(index_comm_paL, color = orange, title="Commercial 52", style=line, linewidth=2)
+plot(index_comm_stL, color = maroon, title="Commercial 156", style=line, linewidth=2)
+
+plot(index_smal_trL, color = silver, title="Small 13", style=line, linewidth=1)
+plot(index_smal_dvL, color = navy, title="Small 26", style=line, linewidth=1)
+plot(index_smal_paL, color = teal, title="Small 52", style=line, linewidth=1)
+plot(index_smal_stL, color = black, title="Small 156", style=line, linewidth=1)

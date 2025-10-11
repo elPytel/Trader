@@ -1,0 +1,89 @@
+//@version=5
+indicator(shorttitle="Futrend/WVAX", title="Williams Value", overlay=false, precision=0)
+
+//---------------------------------------------------------
+// 🧭 ZÁKLADNÍ NASTAVENÍ
+//---------------------------------------------------------
+Tydnu = input.int(26, title="Počet týdnů pro výpočet (okno)")
+
+// Určení časového rámce a násobku
+isdaily = timeframe.isdaily
+timef = isdaily ? "D" : "W"
+nasobek = isdaily ? (timef == "D" ? 5 : 1) : 1
+
+//---------------------------------------------------------
+// 📊 NAČTENÍ EXTERNÍCH DAT
+//  - DX1! = dolarový index
+//  - GC1! = zlato (Gold Futures)
+//  - ZB1! = americké státní dluhopisy (30Y Bond Futures)
+//---------------------------------------------------------
+delitelD = request.security("DX1!", timef, close)
+delitelG = request.security("GC1!", timef, close)
+delitelT = request.security("ZB1!", timef, close)
+
+//---------------------------------------------------------
+// 🟡 ZLATO
+// Vyjadřuje relativní sílu sledovaného instrumentu vůči zlatu
+//---------------------------------------------------------
+PaI2G = ta.sma(close / delitelG * 100, 2 * nasobek)
+PaI22G = ta.sma(close / delitelG * 100, 22 * nasobek)
+PaI222G = PaI2G - PaI22G
+PaIHighG = ta.highest(PaI222G, Tydnu * nasobek)
+PaILowG = ta.lowest(PaI222G, Tydnu * nasobek)
+PaI1G = PaIHighG == PaILowG ? 1 : (PaI222G - PaILowG) / (PaIHighG - PaILowG) * 100
+PaIG = PaI1G < 0 ? 0 : PaI1G
+plot(PaIG, color=color.new(color.gold, 0), linewidth=2, title="Zlato")
+
+//---------------------------------------------------------
+// 💵 DOLAR
+// Vyjadřuje sílu instrumentu vůči dolarovému indexu
+//---------------------------------------------------------
+PaI2D = ta.sma(close / delitelD * 100, 2 * nasobek)
+PaI22D = ta.sma(close / delitelD * 100, 22 * nasobek)
+PaI222D = PaI2D - PaI22D
+PaIHighD = ta.highest(PaI222D, Tydnu * nasobek)
+PaILowD = ta.lowest(PaI222D, Tydnu * nasobek)
+PaI1D = PaIHighD == PaILowD ? 1 : (PaI222D - PaILowD) / (PaIHighD - PaILowD) * 100
+PaID = PaI1D < 0 ? 0 : PaI1D
+plot(PaID, color=color.new(color.blue, 0), linewidth=1, title="Dolar")
+
+//---------------------------------------------------------
+// 🟥 BONDY
+// Vyjadřuje sílu instrumentu vůči dlouhodobým státním dluhopisům
+//---------------------------------------------------------
+PaI2T = ta.sma(close / delitelT * 100, 2 * nasobek)
+PaI22T = ta.sma(close / delitelT * 100, 22 * nasobek)
+PaI222T = PaI2T - PaI22T
+PaIHighT = ta.highest(PaI222T, Tydnu * nasobek)
+PaILowT = ta.lowest(PaI222T, Tydnu * nasobek)
+PaI1T = PaIHighT == PaILowT ? 1 : (PaI222T - PaILowT) / (PaIHighT - PaILowT) * 100
+PaIT = PaI1T < 0 ? 0 : PaI1T
+plot(PaIT, color=color.new(color.red, 0), linewidth=1, title="Bondy")
+
+//---------------------------------------------------------
+// 📈 EXTRÉMNÍ OBLASTI
+//  - Hodnoty nad 75 = horní extrém (překoupeno)
+//  - Hodnoty pod 20 = dolní extrém (přeprodané)
+//---------------------------------------------------------
+bandLow = hline(20, color=color.new(color.gray, 50), linestyle=hline.style_solid, title="Dolní extrém")
+bandHigh = hline(75, color=color.new(color.gray, 50), linestyle=hline.style_solid, title="Horní extrém")
+fill(bandLow, bandHigh, color=color.new(color.silver, 90), title="Pozadí")
+
+//---------------------------------------------------------
+// ℹ️ LEGENDA / INTERPRETACE
+//---------------------------------------------------------
+// Tento indikátor sleduje relativní výkonnost aktuálního instrumentu
+// vůči třem hlavním makro benchmarkům:
+//  - Zlato (žlutá křivka): ukazuje sílu nebo slabost vůči zlatu
+//  - Dolar (modrá křivka): ukazuje vztah vůči USD indexu (měnový vliv)
+//  - Bondy (červená křivka): vztah vůči dluhopisům (úrokové prostředí)
+//
+// Oblasti:
+//  - Nad 75: instrument je „překoupený“ → možné zpomalení růstu
+//  - Pod 20: instrument je „přeprodaný“ → možné oživení
+//
+// Praktické použití:
+//  Sleduj konfluence – např. když všechny tři křivky klesají pod 20,
+//  může to naznačovat širokou slabost. Naopak, když všechny rostou
+//  nad 75, může jít o překoupenou fázi trhu.
+//---------------------------------------------------------

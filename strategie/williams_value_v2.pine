@@ -1,0 +1,46 @@
+//@version=2
+study(shorttitle="Futrend/WVAX", title="Williams Value", overlay=false, precision=0)
+
+Tydnu = input(26, title="Týdnů")
+
+timef = iff(isdaily, 'D', 'W')
+nasobek = iff(isdaily,iff(timef == "D", 5, 1),1)
+
+delitelD = security ("DX1!",timef,close[0])
+delitelG = security ("GC1!",timef,close[0])
+delitelT = security ("ZB1!",timef,close[0])
+
+PaI2G = sma (close[0] / delitelG * 100, 2 * nasobek)
+PaI22G = sma (close[0] / delitelG * 100, 22 * nasobek)
+PaI222G = PaI2G - PaI22G
+PaIHighG = highest (PaI222G, Tydnu * nasobek)
+PaILowG = lowest (PaI222G, Tydnu * nasobek)
+PaI1G = iff(PaIHighG == PaILowG, 1, (PaI222G - PaILowG) / (PaIHighG - PaILowG) * 100)
+PaIG = iff(PaI1G < 0, 0, PaI1G)
+plot(PaIG, color=black, linewidth=2, title="Zlato")
+
+PaI2D = sma (close[0] / delitelD * 100, 2 * nasobek)
+PaI22D = sma (close[0] / delitelD * 100, 22 * nasobek)
+PaI222D = PaI2D - PaI22D
+PaIHighD = highest (PaI222D, Tydnu * nasobek)
+PaILowD = lowest (PaI222D, Tydnu * nasobek)
+PaI1D = iff(PaIHighD == PaILowD, 1, (PaI222D - PaILowD) / (PaIHighD - PaILowD) * 100)
+PaID = iff(PaI1D < 0, 0, PaI1D)
+plot(PaID, color=blue, linewidth=1, title="Dolar")
+
+
+
+PaI2T = sma (close[0] / delitelT * 100, 2 * nasobek)
+PaI22T = sma (close[0] / delitelT * 100, 22 * nasobek)
+PaI222T = PaI2T - PaI22T
+PaIHighT = highest (PaI222T, Tydnu * nasobek)
+PaILowT = lowest (PaI222T, Tydnu * nasobek)
+PaI1T = iff(PaIHighT == PaILowT, 1, (PaI222T - PaILowT) / (PaIHighT - PaILowT) * 100)
+PaIT = iff(PaI1T < 0, 0, PaI1T)
+plot(PaIT, color=red, linewidth=1, title="Bondy")
+
+
+band1 = hline(20, linestyle=0, title="Dolní extrém")
+band0 = hline(75, linestyle=0, title="Horní extrém")
+fill(band1, band0, title="Pozadí")
+

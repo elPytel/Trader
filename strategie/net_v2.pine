@@ -1,0 +1,196 @@
+//@version=2
+// CFTC Commitment of Traders (COT)
+study("NET position", shorttitle="NET", precision=0)
+
+is_includeoptions = input(true, type=bool, title="Včetně opcí")
+sma = input(14, type=integer, title="Délka SMA")
+
+
+fin =
+	  syminfo.root == "TU"     ? 1 :
+	  syminfo.root == "TY"     ? 1 :
+	  syminfo.root == "FV"     ? 1 :
+
+	  syminfo.root == "AUDUSD" ? 1 :
+	  syminfo.root == "GBPUSD" ? 1 :
+	  syminfo.root == "NZDUSD" ? 1 :
+	  syminfo.root == "BRLUSD" ? 1 :
+	  syminfo.root == "USDCAD" ? 1 :
+	  syminfo.root == "USDCHF" ? 1 :
+	  syminfo.root == "USDJPY" ? 1 :
+	  syminfo.root == "USDMXN" ? 1 :
+	  syminfo.root == "USDRUB" ? 1 :
+	  syminfo.root == "USDZAR" ? 1 :
+	  syminfo.root == "EURUSD" ? 1 :
+	  syminfo.root == "FXE"    ? 1 :
+	  syminfo.root == "E6"     ? 1 :
+	  syminfo.root == "S6"     ? 1 :
+	  syminfo.root == "J6"     ? 1 :
+	  syminfo.root == "D6"     ? 1 :
+	  syminfo.root == "6A"     ? 1 :
+	  syminfo.root == "6B"     ? 1 :
+	  syminfo.root == "N6"     ? 1 :
+	  syminfo.root == "B6"     ? 1 :
+	  syminfo.root == "M6"     ? 1 :
+	  syminfo.root == "YO"     ? 1 :
+	  syminfo.root == "6M"     ? 1 :
+	  syminfo.root == "DXY"    ? 1 :
+	  syminfo.root == "DX"     ? 1 :
+	  syminfo.root == "GE"     ? 1 :
+	  syminfo.root == "ED"     ? 1 :
+	  syminfo.root == "6E"     ? 1 :
+	  syminfo.root == "6S"     ? 1 :
+	  syminfo.root == "6N"     ? 1 :  
+
+	  syminfo.root == "SPX"    ? 1 :
+	  syminfo.root == "SPY"    ? 1 :
+	  syminfo.root == "ES"     ? 1 :
+	  syminfo.root == "SP"     ? 1 :
+	  syminfo.root == "MDY0"   ? 1 :
+	  syminfo.root == "NY"     ? 1 :
+	  syminfo.root == "IUXX"   ? 1 :
+	  syminfo.root == "DJY0"   ? 1 :
+	  syminfo.root == "NQ"     ? 1 :
+	  syminfo.root == "IUX"    ? 1 :
+	  syminfo.root == "IWM"    ? 1 :
+	  syminfo.root == "TNA"    ? 1 :
+	  syminfo.root == "RJ"     ? 1 :
+	  syminfo.root == "IDX"    ? 1 :
+	  syminfo.root == "YM"     ? 1 :
+	  syminfo.root == "RTY"    ? 1 :
+
+	  syminfo.root == "ZQ"     ? 1 :
+	  syminfo.root == "ZT"     ? 1 :
+	  syminfo.root == "ZF"     ? 1 :
+	  syminfo.root == "ZN"     ? 1 :
+	  syminfo.root == "ZB"     ? 1 :
+	  syminfo.root == "TLT"    ? 1 :
+	  0
+
+coticker =
+	  syminfo.root == "AUDUSD" ? "232741" :
+	  syminfo.root == "6J"     ? "097741" :
+	  syminfo.root == "GBPUSD" ? "096742" :
+	  syminfo.root == "NZDUSD" ? "112741" :
+	  syminfo.root == "BRLUSD" ? "102741" :
+	  syminfo.root == "USDCAD" ? "090741" :
+	  syminfo.root == "USDCHF" ? "092741" :
+	  syminfo.root == "USDJPY" ? "097741" :
+	  syminfo.root == "USDMXN" ? "095741" :
+	  syminfo.root == "USDRUB" ? "089741" :
+	  syminfo.root == "USDZAR" ? "122741" :
+	  syminfo.root == "EURUSD" ? "099741" :
+	  syminfo.root == "FXE"    ? "099741" :
+	  syminfo.root == "E6"     ? "099741" :
+	  syminfo.root == "S6"     ? "092741" :
+	  syminfo.root == "6B"     ? "299741" :
+	  syminfo.root == "6C"     ? "090741" :	  
+	  syminfo.root == "J6"     ? "097741" :
+	  syminfo.root == "D6"     ? "090741" :
+	  syminfo.root == "6A"     ? "232741" :
+	  syminfo.root == "N6"     ? "112741" :
+	  syminfo.root == "B6"     ? "102741" :
+	  syminfo.root == "M6"     ? "095741" :
+	  syminfo.root == "YO"     ? "095741" :
+	  syminfo.root == "6M"     ? "095741" :
+	  syminfo.root == "DXY"    ? "098662" :
+	  syminfo.root == "DX"     ? "098662" :
+	  syminfo.root == "GE"     ? "132741" :
+	  syminfo.root == "ED"     ? "132741" :
+	  syminfo.root == "6E"     ? "099741" :
+	  syminfo.root == "6S"     ? "092741" :
+	  syminfo.root == "6N"     ? "112741" :  
+
+	  syminfo.root == "ZC"     ? "002602" :
+	  syminfo.root == "C"      ? "002602" :
+	  syminfo.root == "ZS"     ? "005602" :
+	  syminfo.root == "S"      ? "005602" :
+	  syminfo.root == "ZM"     ? "026603" :
+	  syminfo.root == "ZL"     ? "007601" :
+	  syminfo.root == "BO"     ? "007601" :
+	  syminfo.root == "ZW"     ? "001602" :
+	  syminfo.root == "W"      ? "001602" :
+	  syminfo.root == "KE"     ? "001612" :
+	  syminfo.root == "ZO"     ? "004603" :
+	  syminfo.root == "ZR"     ? "039601" :
+
+	  syminfo.root == "COPPER" ? "085692" :
+	  syminfo.root == "HG"     ? "085692" :
+	  syminfo.root == "XAUUSD" ? "088691" :
+	  syminfo.root == "XAGUSD" ? "084691" :
+	  syminfo.root == "NUGT"   ? "088691" :
+	  syminfo.root == "GOLD"   ? "088691" :
+	  syminfo.root == "GLD"    ? "088691" :
+	  syminfo.root == "GC"     ? "088691" :
+	  syminfo.root == "SI"     ? "084691" :
+	  syminfo.root == "PL"     ? "076651" :
+	  syminfo.root == "PA"	   ? "075651" :
+
+	  syminfo.root == "LE"     ? "057642" :
+	  syminfo.root == "GF"     ? "061641" :
+	  syminfo.root == "HE"     ? "054642" :
+
+	  syminfo.root == "SPX"    ? "138741" :
+	  syminfo.root == "SPY"    ? "138741" :
+	  syminfo.root == "ES"     ? "13874A" :
+	  syminfo.root == "SP"     ? "138741" :
+	  syminfo.root == "MDY0"   ? "33874A" :
+	  syminfo.root == "NY"     ? "240741" :
+	  syminfo.root == "IUXX"   ? "209742" :
+	  syminfo.root == "DJY0"   ? "209742" :
+	  syminfo.root == "NQ"     ? "209742" :
+	  syminfo.root == "IUX"    ? "23977A" :
+	  syminfo.root == "IWM"    ? "23977A" :
+	  syminfo.root == "TNA"    ? "23977A" :
+	  syminfo.root == "RJ"     ? "23977A" :
+	  syminfo.root == "IDX"    ? "124601" :
+	  syminfo.root == "YM"     ? "124603" :
+	  syminfo.root == "RTY"    ? "23977A" :
+
+	  syminfo.root == "ZQ"     ? "045601" :
+	  syminfo.root == "ZT"     ? "042601" :
+	  syminfo.root == "ZF"     ? "044601" :
+	  syminfo.root == "ZN"     ? "043602" :
+	  syminfo.root == "ZB"     ? "020601" :
+	  syminfo.root == "TLT"    ? "020604" :
+
+	  syminfo.root == "VI"     ? "1170E1" :
+	  syminfo.root == "VIX"    ? "1170E1" :
+
+	  syminfo.root == "CL"     ? "067651" :
+	  syminfo.root == "BB"     ? "06741R" :
+	  syminfo.root == "HO"     ? "022651" :
+	  syminfo.root == "NG"     ? "023651" :
+	  syminfo.root == "RB"     ? "111659" :
+	  syminfo.root == "FL"     ? "025651" :
+	  syminfo.root == "USOIL"  ? "067651" :
+	  syminfo.root == "USO"    ? "067651" :
+	  syminfo.root == "WTICOUSD" ? "067651" :
+    
+	  syminfo.root == "CC"     ? "073732" :
+	  syminfo.root == "KC"     ? "083731" :
+	  syminfo.root == "CT"     ? "033661" :
+	  syminfo.root == "JO"     ? "040701" :
+	  syminfo.root == "SB"     ? "080732" :
+	  syminfo.root == "BD"     ? "050642" :
+	  syminfo.root == "BJ"     ? "063642" :
+	  ""
+
+
+
+codeL = "QUANDL:CFTC/"+coticker+(is_includeoptions ? "_FO" : "_F")+"_L_ALL|"
+
+nasobek = iff(isdaily,5,1)
+
+long_noncomL  = security(codeL + "1", "W", close) 
+short_noncomL = security(codeL + "2", "W", close) 
+net_noncomL = sma(long_noncomL - short_noncomL, nasobek)
+
+plot(net_noncomL, color = blue, title="NET Large", linewidth=2)
+plot(sma(net_noncomL,sma), color = fuchsia, title="SMA Large", linewidth=1)
+
+
+long_comL  = security(codeL + "4", "W", close) 
+short_comL = security(codeL + "5", "W", close) 
+net_comL = sma(long_comL - short_comL, nasobek)
+plot(net_comL, color = red, title="NET Commercial", linewidth=2)
