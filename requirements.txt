@@ -7,4 +7,3 @@ requests
 matplotlib
 basic-colors
 scikit-learn
-langchain-openai
