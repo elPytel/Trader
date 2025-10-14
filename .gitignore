@@ -4,6 +4,7 @@
 ### User-specific ###
 *.log
 *.key
+*.hash
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
