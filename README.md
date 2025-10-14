@@ -1,9 +1,8 @@
-# Python Flask aplikace
+# Obchodování
 
-- [Python Flask aplikace](#python-flask-aplikace)
-  - [Jak spustit aplikaci](#jak-spustit-aplikaci)
-  - [Stránka](#stránka)
 - [Obchodování](#obchodování)
+  - [TODO:](#todo)
+  - [Rozcestí](#rozcestí)
   - [Slovníček pojmů](#slovníček-pojmů)
   - [Algoritmické obchodování - platformy](#algoritmické-obchodování---platformy)
     - [💻 Pine Script](#-pine-script)
@@ -28,20 +27,7 @@
     - [Přímé propojení přes Python + IBKR API](#přímé-propojení-přes-python--ibkr-api)
     - [Krok po kroku:](#krok-po-kroku)
 
-## Jak spustit aplikaci
-
-1. Ujistěte se, že máte nainstalované všechny potřebné knihovny uvedené v `requirements.txt`.
-2. Spusťte aplikaci pomocí příkazu:
-
-   ```bash
-   python app.py
-   ```
-
-## Stránka
-
-Webová stránka bude dostupná na [http://127.0.0.1:5000/](http://127.0.0.1:5000/) ve vašem prohlížeči.
-
-# Obchodování
+## TODO:
 
 - Jak vytvořit trading bota?
   - Jak vytvořit strategii v Pine Scriptu?
@@ -53,6 +39,11 @@ Webová stránka bude dostupná na [http://127.0.0.1:5000/](http://127.0.0.1:500
 - Ostré obchodování
 - Jak vytvořit nekorelované portfolio?
   - Výpočet korelace mezi strategiemi v backtestu
+
+## Rozcestí
+
+- [Python Flask aplikace](Flask_aplikace.md)
+- [IBKR - Interactive Brokers](IBKR.md)
 
 ## Slovníček pojmů
 - **Broker** - prostředník pro obchodování na burze.
