@@ -5,6 +5,7 @@
 *.log
 *.key
 *.hash
+*.csv
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
