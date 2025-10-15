@@ -9,3 +9,5 @@ basic-colors
 scikit-learn
 
 flask
+ibapi
+tabulate

@@ -44,6 +44,7 @@
 
 - [Python Flask aplikace](Flask_aplikace.md)
 - [IBKR - Interactive Brokers](IBKR.md)
+  - [Trader Workstation](Trader_Workstation.md)
 
 ## Slovníček pojmů
 - **Broker** - prostředník pro obchodování na burze.
@@ -52,6 +53,10 @@
 - **Algoritmické obchodování** - obchodování pomocí počítačových programů.
 - **Paper trading** - simulované obchodování bez reálných peněz.
 - **Backtesting** - testování obchodní strategie na historických datech.
+
+- **CFD** - Contract for Difference, finanční derivát umožňující spekulovat na cenové pohyby bez vlastnictví podkladového aktiva. "Sázka na změnu ceny".
+
+- **BURZA** - místo, kde se obchoduje s cennými papíry, komoditami, měnami atd. (sjednocuje podmínky prodeje a nákupu mezi brokery na dané burze).
 
 Algoritmické obchodování v praxi
 
@@ -139,6 +144,8 @@ Pine Script je jazyk pro skriptování, který se používá v TradingView pro v
 > Slouží čistě jako přenosný formát kódu mezi uživateli TradingView.
 
 ## IBKR - Interactive Brokers
+
+[IBKR - Interactive Brokers](IBKR.md)
 
 ### IBKR API
 
