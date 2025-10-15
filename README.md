@@ -4,6 +4,9 @@
   - [TODO:](#todo)
   - [Rozcestí](#rozcestí)
   - [Slovníček pojmů](#slovníček-pojmů)
+  - [Diskreční obchodování](#diskreční-obchodování)
+    - [Kognitivní zkreslení](#kognitivní-zkreslení)
+  - [Systematické obchodování](#systematické-obchodování)
   - [Algoritmické obchodování - platformy](#algoritmické-obchodování---platformy)
     - [💻 Pine Script](#-pine-script)
     - [🧠 TradingView](#-tradingview)
@@ -40,6 +43,9 @@
 - Jak vytvořit nekorelované portfolio?
   - Výpočet korelace mezi strategiemi v backtestu
 
+
+
+
 ## Rozcestí
 
 - [Python Flask aplikace](Flask_aplikace.md)
@@ -59,6 +65,41 @@
 - **BURZA** - místo, kde se obchoduje s cennými papíry, komoditami, měnami atd. (sjednocuje podmínky prodeje a nákupu mezi brokery na dané burze).
 
 Algoritmické obchodování v praxi
+
+## Diskreční obchodování
+![price patterns](https://s3.tradingview.com/n/nbQ5AqfN_mid.webp)
+
+> [!tip]
+> Člověk podléhá emocím, proto je těžké dělat dobré rozhodnutí.
+
+- Časově náročné.
+- Vyžaduje hodně praxe a zkušeností.
+- Velké množství disciplíny a sebekontroly.
+
+### Kognitivní zkreslení
+- Klam přeživších — Zaměřujeme se pouze na ty, kteří uspěli, a přehlížíme všechny, kteří neuspěli. To vede k mylnému dojmu, že například obchodování je snadné, protože nevidíme většinu těch, kteří selhali.
+
+- Konfirmační zkreslení — Máme tendenci vyhledávat a přijímat jen informace, které potvrzují naše stávající názory, a ignorovat ty, které nám odporují.
+
+- Iluze shlukování — Vidíme vzorce i tam, kde žádné nejsou. Například věříme, že po sérii červených čísel na ruletě je méně pravděpodobné, že padne další červená.
+
+- Stádový efekt — Čím více lidí nějakou myšlenku nebo postup přijímá, tím spíše ji přijmeme i my sami. Například když všichni obchodují určité patterny, máme tendenci je také zkoušet.
+
+- Zkreslení výsledkem — Rozhodnutí často hodnotíme podle jeho výsledku, místo abychom posuzovali, zda bylo rozumné v dané situaci. Zisk vnímáme automaticky pozitivně, ztrátu negativně, bez ohledu na kvalitu rozhodnutí.
+
+- Sklon neriskovat — Máme přirozenou tendenci vyhýbat se riziku a „hrát na jistotu“. To často vede k tomu, že začátečníci vystupují z obchodů v nejméně vhodný okamžik.
+
+- Efekt potvrzení zvoleného — Jakmile se pro něco rozhodneme, máme sklon své rozhodnutí obhajovat a hledat pro něj další argumenty.
+
+- Kognitivní slepá skvrna — Je pro nás těžké rozpoznat, jak moc na nás samotné působí kognitivní zkreslení, i když je snadno vidíme u ostatních.
+
+## Systematické obchodování
+
+Analýza historických dat.
+
+Pevně daná pravidla.
+
+Replikovatelný a škálovatelný proces.
 
 ## Algoritmické obchodování - platformy
 

@@ -1,9 +1,49 @@
 import requests
 import csv
 from tabulate import tabulate
+from basic_colors import *
 from ibapi.client import *
 from ibapi.wrapper import *
 from decimal import Decimal
+
+import logging
+import colorama
+from colorama import Fore, Style
+colorama.init()
+
+class ColoredFormatter(logging.Formatter):
+    COLORS = {
+        logging.INFO: Fore.BLUE,
+        logging.WARNING: Fore.YELLOW,
+        logging.ERROR: Fore.RED,
+        logging.CRITICAL: Fore.MAGENTA,
+        logging.DEBUG: Fore.CYAN,
+    }
+
+    def format(self, record):
+        color = self.COLORS.get(record.levelno, "")
+        levelname = f"{color}[{record.levelname}]{Style.RESET_ALL}"
+        message = super().format(record)
+        return message.replace(f"[{record.levelname}]", levelname)
+
+console_formatter = ColoredFormatter("[%(levelname)s] %(message)s")
+file_formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
+
+handler_file = logging.FileHandler("trader.log", encoding="utf-8")
+handler_console = logging.StreamHandler()
+
+handler_file.setFormatter(file_formatter)
+handler_console.setFormatter(console_formatter)
+
+logging.basicConfig(
+    level=logging.INFO,
+    handlers=[handler_file, handler_console]
+)
+
+PAPER_TRADING_PORT = 7497
+PORT = PAPER_TRADING_PORT
+
+clientID = 100
 
 HASH = None
 with open(".hash", "r") as f:
@@ -23,13 +63,14 @@ def download_csv(base_url, strategy, hash_value):
     response = requests.get(url)
     if response.status_code == 200:
         text = response.content
-        print(f"Staženo: {filename}")
+        logging.info(f"Staženo: {filename}")
         return text, filename
     else:
-        print(f"Chyba při stahování: {response.status_code}")
+        logging.error(f"Chyba při stahování: {response.status_code}")
     return None, None
 
 def save_to_file(text, filename):
+    logging.info(f"Ukládám: {filename}")
     with open(filename, "wb") as f:
         f.write(text)
 
@@ -37,6 +78,7 @@ def load_csv_table(filename):
     with open(filename, encoding="utf-8") as f:
         reader = csv.reader(f)
         table = list(reader)
+    logging.info(f"Nahráno: {filename} ({len(table)} řádků)")
     return table
 
 def print_csv_table(table, columns=-1):
@@ -109,8 +151,6 @@ class TestApp(EClient, EWrapper):
         print(f"reqId: {reqId}, contract: {contract}, execution: {execution}")
 
 
-"""
 app = TestApp()
-app.connect("127.0.0.1", 7497, 100)
-app.run()
-"""
+app.connect("127.0.0.1", PORT, clientID)
+#app.run()
