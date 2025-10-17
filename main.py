@@ -43,7 +43,7 @@ logging.basicConfig(
 PAPER_TRADING_PORT = 7497
 PORT = PAPER_TRADING_PORT
 
-clientID = 100
+clientID = 1
 
 HASH = None
 with open(".hash", "r") as f:
@@ -66,7 +66,7 @@ def download_csv(base_url, strategy, hash_value):
         logging.info(f"Staženo: {filename}")
         return text, filename
     else:
-        logging.error(f"Chyba při stahování: {response.status_code}")
+        logging.error(f"Chyba: {response.status_code} při stahování: {filename}")
     return None, None
 
 def save_to_file(text, filename):
@@ -88,14 +88,14 @@ def print_csv_table(table, columns=-1):
     print(tabulate(data, headers=header, tablefmt="grid"))
 
 
-"""
 for strategy in strategies:
     text, filename = download_csv(BASE_URL, strategy, HASH)
     if text and filename:
         save_to_file(text, filename)
-"""
+        print_csv_table(load_csv_table(filename), 11)
 
-print_csv_table(load_csv_table("SMRCA_L.csv"), 11)
+
+#print_csv_table(load_csv_table("SMRCA_L.csv"), 11)
 
 class TestApp(EClient, EWrapper):
     def __init__(self):
@@ -153,4 +153,4 @@ class TestApp(EClient, EWrapper):
 
 app = TestApp()
 app.connect("127.0.0.1", PORT, clientID)
-#app.run()
+app.run()
