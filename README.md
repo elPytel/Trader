@@ -7,10 +7,15 @@
   - [Diskreční obchodování](#diskreční-obchodování)
     - [Kognitivní zkreslení](#kognitivní-zkreslení)
   - [Systematické obchodování](#systematické-obchodování)
-  - [Algoritmické obchodování - platformy](#algoritmické-obchodování---platformy)
-    - [💻 Pine Script](#-pine-script)
-    - [🧠 TradingView](#-tradingview)
-    - [🏦 IBKR (Interactive Brokers)](#-ibkr-interactive-brokers)
+    - [Základní principy obchodování](#základní-principy-obchodování)
+      - [Market Orders](#market-orders)
+      - [Limit Orders](#limit-orders)
+  - [Algoritmické obchodování](#algoritmické-obchodování)
+    - [Strategie](#strategie)
+    - [Platformy](#platformy)
+      - [💻 Pine Script](#-pine-script)
+      - [🧠 TradingView](#-tradingview)
+      - [🏦 IBKR (Interactive Brokers)](#-ibkr-interactive-brokers)
   - [TradingView](#tradingview)
     - [Pine Scriptu](#pine-scriptu)
       - [Jak ho použít:](#jak-ho-použít)
@@ -26,7 +31,7 @@
       - [Co TradingView backtesting umí](#co-tradingview-backtesting-umí)
       - [Omezení TradingView backtestingu](#omezení-tradingview-backtestingu)
       - [Shrnutí](#shrnutí)
-  - [Algoritmické obchodování - propojení platforem](#algoritmické-obchodování---propojení-platforem)
+  - [Propojení platforem](#propojení-platforem)
     - [Přímé propojení přes Python + IBKR API](#přímé-propojení-přes-python--ibkr-api)
     - [Krok po kroku:](#krok-po-kroku)
 
@@ -43,18 +48,21 @@
 - Jak vytvořit nekorelované portfolio?
   - Výpočet korelace mezi strategiemi v backtestu
 
-
-
-
+Mapovat celou cestu: od signálu → alert → exekuce → obchodní log → evaluace
 ## Rozcestí
 
 - [Python Flask aplikace](Flask_aplikace.md)
 - [IBKR - Interactive Brokers](IBKR.md)
   - [Trader Workstation](Trader_Workstation.md)
+- [Obchodní strategie](./DOC/Obchodní%20strategie.md)
+  - [Metriky strategií](./DOC/Metriky%20strategií.md)
 
 ## Slovníček pojmů
+- **BURZA** - místo, kde se obchoduje s cennými papíry, komoditami, měnami atd. (sjednocuje podmínky prodeje a nákupu mezi brokery na dané burze).
 - **Broker** - prostředník pro obchodování na burze.
   - **IBKR** - Interactive Brokers, a je to jedna z největších a nejrespektovanějších broker společností na světě.
+  - **Komise** - poplatek, který si broker účtuje za provedení obchodu.
+- **Pasivní investování** - strategie, která se snaží minimalizovat aktivní obchodování a náklady spojené s ním. Například investování do indexových fondů (koupím a držím).
 - **Systematické obchodování** - obchodování na základě předem definovaných pravidel.
 - **Algoritmické obchodování** - obchodování pomocí počítačových programů.
 - **Paper trading** - simulované obchodování bez reálných peněz.
@@ -62,7 +70,13 @@
 
 - **CFD** - Contract for Difference, finanční derivát umožňující spekulovat na cenové pohyby bez vlastnictví podkladového aktiva. "Sázka na změnu ceny".
 
-- **BURZA** - místo, kde se obchoduje s cennými papíry, komoditami, měnami atd. (sjednocuje podmínky prodeje a nákupu mezi brokery na dané burze).
+- **HFT** - High-Frequency Trading, forma algoritmického obchodování využívajícího rychlé počítače k provádění velkého množství obchodů v krátkém čase.
+
+- **Akcie** - cenné papíry, které představují podíl na vlastnictví společnosti.
+  - ASK - cena, za kterou můžeme nakoupit aktivum.
+  - BID - cena, za kterou můžeme prodat aktivum.
+
+- **ETF** - Exchange-Traded Fund, investiční fond obchodovaný na burze (balík akcií), který sleduje výkonnost určitého indexu, komodity nebo **koše** aktiv.
 
 Algoritmické obchodování v praxi
 
@@ -95,13 +109,63 @@ Algoritmické obchodování v praxi
 
 ## Systematické obchodování
 
-Analýza historických dat.
+- Analýza historických dat.
+- Pevně daná pravidla.
+- Replikovatelný a škálovatelný proces.
 
-Pevně daná pravidla.
+### Základní principy obchodování
 
-Replikovatelný a škálovatelný proces.
+> [!note] Long
+> "Koupit levně a prodat draze." Nakoupíme aktivum s očekáváním, že jeho cena poroste.
 
-## Algoritmické obchodování - platformy
+> [!note] Short
+> "Prodat draze a koupit levně." Prodáme aktivum, které nevlastníme, s očekáváním, že jeho cena klesne, a později ho koupíme zpět za nižší cenu.
+
+> [!note] Margin
+> Obchodování na páku, kdy si půjčujeme peníze od brokera k většímu objemu obchodů.
+
+> [!note] Stop-Loss
+> "Omezit ztráty." Automatický příkaz k prodeji aktiva, když jeho cena klesne na určitou úroveň.
+
+> [!note] STP Stop
+> STP Stop (Stop Order) - Příkaz k nákupu nebo prodeji aktiva, když jeho cena dosáhne určité úrovně (stop ceny), který se pak stává tržním příkazem.
+
+> [!note] Profit Target
+> "Zajistit zisk." Automatický příkaz k prodeji aktiva, když jeho cena dosáhne určité úrovně zisku.
+
+> [!note] GTC
+> GTC (Good Till Cancelled) - Příkaz, který zůstává aktivní, dokud není buď proveden, nebo zrušen.
+
+> [!note] Day Order
+> Denní příkaz - Příkaz, který je platný pouze do konce obchodního dne, ve kterém byl zadán.
+
+> [!note] OPG
+> OPG (At the Opening) - Příkaz k nákupu nebo prodeji za cenu při otevření trhu.
+> - MOO (Market On Open) - tržní příkaz k nákupu nebo prodeji při otevření trhu.
+> - LOO (Limit On Open) - limitní příkaz k nákupu nebo prodeji při otevření trhu.
+
+
+#### Market Orders
+> [!note] Market Order
+> Tržní příkaz - Příkaz k okamžitému nákupu nebo prodeji aktiva za auktuální dostupnou cenu na trhu.
+
+> [!note] MOC
+> MOC (Market On Close) - tržní příkaz k nákupu nebo prodeji při uzavření trhu.
+ 
+#### Limit Orders
+
+LMT (Limit Order) - Limitní příkaz - Příkaz k nákupu nebo prodeji aktiva za specifikovanou cenu nebo lepší.
+
+> [!note] LOC
+> LOC (Limit On Close) - limitní příkaz k nákupu nebo prodeji při uzavření trhu.
+
+## Algoritmické obchodování
+
+### Strategie
+
+[Obchodní strategie](./DOC/Obchodn%C3%AD%20strategie.md)
+
+### Platformy
 
 ```css
 [ Pine Script ] → analýza, indikátory
@@ -117,7 +181,7 @@ Replikovatelný a škálovatelný proces.
 | 💼 **IBKR (Interactive Brokers)** | Broker (obchodník s cennými papíry) | Reálné obchodování s akciemi, futures, forexem atd.       | Zadáš příkaz: „kup 10x AAPL“                           |
 | 💻 **Pine Script**                | Programovací jazyk (od TradingView) | Tvorba indikátorů, strategií a alertů přímo v TradingView | Napíšeš skript, který ukazuje kdy nakoupit/prodat      |
 
-### 💻 Pine Script
+#### 💻 Pine Script
 
 Je to jazyk používaný výhradně v TradingView.
 
@@ -133,7 +197,7 @@ Je to jazyk používaný výhradně v TradingView.
 - běží přímo v prohlížeči,
 - rychlý backtest.
 
-### 🧠 TradingView
+#### 🧠 TradingView
 
 Je to webová platforma pro analýzu trhů:
 
@@ -145,7 +209,7 @@ Je to webová platforma pro analýzu trhů:
 „Chci sledovat RSI a MACD na grafu Bitcoinu a upozornění, když RSI < 30.“
 
 
-### 🏦 IBKR (Interactive Brokers)
+#### 🏦 IBKR (Interactive Brokers)
 
 IBKR je reálný broker:
 - drží tvé peníze a pozice,
@@ -325,7 +389,7 @@ Můžeš nastavit:
 > [!note]
 > Pokud chceš *realistický backtest* s více aktivy a pozicemi, budeš potřebovat **Python** + knihovnu (např. **Backtrader**, **vectorbt**).
 
-## Algoritmické obchodování - propojení platforem
+## Propojení platforem
 
 Omezení TradingView je v tom, že Pine Script běží jen na serverech TradingView. Může generovat signály a alerty, ale nemá API, které by přímo provádělo obchody u brokera.
 
