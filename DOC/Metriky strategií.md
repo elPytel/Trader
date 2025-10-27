@@ -14,6 +14,14 @@
     - [📊 Příklad:](#-příklad-3)
   - [💡 **Jak Winrate a R:R spolu souvisí**](#-jak-winrate-a-rr-spolu-souvisí)
     - [📈 Příklad porovnání:](#-příklad-porovnání)
+  - [📘 **Definice: Sharpe Ratio**](#-definice-sharpe-ratio)
+    - [⚙️ **Matematický vzorec:**](#️-matematický-vzorec)
+    - [📊 **Příklad:**](#-příklad-4)
+    - [📈 **Jak interpretovat hodnoty**](#-jak-interpretovat-hodnoty)
+    - [🧠 **Intuitivně:**](#-intuitivně)
+    - [💡 **Proč je důležité:**](#-proč-je-důležité)
+    - [📚 **Příklad výpočtu v Pythonu:**](#-příklad-výpočtu-v-pythonu)
+    - [📋 **Shrnutí**](#-shrnutí)
 
 
 ## Zhodnocení
@@ -125,3 +133,104 @@ Pokud EV > 0 → strategie dlouhodobě vydělává 💰
 | Mean reversion   | 70 %    | 1 : 1       | ✅ Mírně zisková |
 | Špatná strategie | 60 %    | 0.5 : 1     | ❌ Ztrátová      |
 
+## 📘 **Definice: Sharpe Ratio**
+
+> **Sharpe ratio** měří, jaký *nadvýnos* (zisk nad bezrizikovou sazbou) přináší strategie **v poměru k jejímu riziku (volatilitě)**.
+
+Jinými slovy:
+
+> Kolik zisku jsi získal za každý jednotkový „risk“, který jsi podstoupil.
+
+**Sharpe ratio** (česky *Sharpeho poměr*) je jeden z **nejdůležitějších ukazatelů výkonnosti investiční nebo obchodní strategie**.
+Používají ho fondy, algoritmičtí tradeři i kvantitativní analýzy, protože spojuje **výnos a riziko do jednoho čísla**.
+
+### ⚙️ **Matematický vzorec:**
+
+$$
+S = \frac{R_p - R_f}{\sigma_p}
+$$
+
+kde:
+
+* $S$ = Sharpe ratio
+* $R_p$ = průměrný výnos portfolia nebo strategie
+* $R_f$ = bezriziková úroková míra (např. výnos státních dluhopisů)
+* $\sigma_p$ = směrodatná odchylka výnosů (měří volatilitu / riziko)
+
+---
+
+### 📊 **Příklad:**
+
+* Průměrný měsíční výnos strategie: **2 %**
+* Bezriziková sazba: **0.5 %**
+* Směrodatná odchylka výnosů: **1 %**
+
+$$
+S = \frac{2 - 0.5}{1} = 1.5
+$$
+
+👉 Sharpe ratio = **1.5**
+
+To znamená, že strategie vydělává **1.5 jednotky výnosu na každou jednotku rizika**.
+
+
+### 📈 **Jak interpretovat hodnoty**
+
+| Sharpe Ratio | Kvalita strategie | Interpretace                              |
+| ------------ | ----------------- | ----------------------------------------- |
+| < 0          | ❌ Ztrátová        | Lepší by bylo držet hotovost              |
+| 0 – 1        | ⚠️ Slabá          | Riziko neodpovídá výnosu                  |
+| 1 – 2        | ✅ Dobrá           | Vyvážený poměr rizika a výnosu            |
+| 2 – 3        | 💪 Výborná        | Efektivní strategie                       |
+| > 3          | 🚀 Výjimečná      | Typické pro HFT nebo krátkodobé algoritmy |
+
+
+### 🧠 **Intuitivně:**
+
+* Sharpe ratio **roste**, když:
+
+  * výnosy jsou stabilní (nízká volatilita),
+  * zisk je konzistentní,
+  * a drawdowny jsou malé.
+* Když strategie má stejné zisky, ale větší výkyvy → Sharpe ratio **klesne**.
+
+
+### 💡 **Proč je důležité:**
+
+* Umožňuje **porovnat různé strategie** bez ohledu na velikost kapitálu.
+* Pomáhá vybrat „nejefektivnější“ strategii, ne nutně tu s nejvyšším ziskem.
+* Používá se i v optimalizaci portfolií (např. Markowitzova teorie portfolia).
+
+
+### 📚 **Příklad výpočtu v Pythonu:**
+
+```python
+import pandas as pd
+import numpy as np
+
+# Simulace denních výnosů strategie
+returns = pd.Series([0.002, 0.003, -0.001, 0.004, 0.001])
+
+# Bezriziková sazba (např. 5 % ročně ≈ 0.05 / 252 za den)
+risk_free_rate = 0.05 / 252
+
+# Výpočet Sharpe ratio (annualizované)
+excess_returns = returns - risk_free_rate
+sharpe_ratio = np.sqrt(252) * excess_returns.mean() / excess_returns.std()
+
+print("Sharpe ratio:", round(sharpe_ratio, 2))
+```
+
+📈 Tento kód ti ukáže, jak Sharpe ratio přepočítat na roční bázi.
+
+
+### 📋 **Shrnutí**
+
+| Parametr           | Význam                                   |
+| ------------------ | ---------------------------------------- |
+| Název              | Sharpe Ratio                             |
+| Měří               | Efektivitu výnosu vůči riziku            |
+| Jednotka           | Bezrozměrná (číslo)                      |
+| Ideální hodnota    | > 1 (dobrá), > 2 (výborná)               |
+| Riziko měřené přes | Volatilitu (směrodatná odchylka výnosů)  |
+| Použití            | Porovnání strategií, hodnocení portfolií |
