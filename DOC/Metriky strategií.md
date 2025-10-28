@@ -5,23 +5,23 @@
     - [📊 Příklad:](#-příklad)
   - [Drawdown](#drawdown)
     - [📊 Příklad:](#-příklad-1)
-  - [🎯 **Winrate (míra úspěšnosti obchodů)**](#-winrate-míra-úspěšnosti-obchodů)
+  - [🎯 Winrate (míra úspěšnosti obchodů)](#-winrate-míra-úspěšnosti-obchodů)
     - [📘 Definice:](#-definice)
     - [📊 Příklad:](#-příklad-2)
     - [🧠 Poznámka:](#-poznámka)
-  - [⚖️ **Risk/Reward Ratio (poměr rizika k výnosu)**](#️-riskreward-ratio-poměr-rizika-k-výnosu)
+  - [⚖️ Risk/Reward Ratio (poměr rizika k výnosu)](#️-riskreward-ratio-poměr-rizika-k-výnosu)
     - [📘 Definice:](#-definice-1)
     - [📊 Příklad:](#-příklad-3)
-  - [💡 **Jak Winrate a R:R spolu souvisí**](#-jak-winrate-a-rr-spolu-souvisí)
+  - [💡 Jak Winrate a R:R spolu souvisí](#-jak-winrate-a-rr-spolu-souvisí)
     - [📈 Příklad porovnání:](#-příklad-porovnání)
-  - [📘 **Definice: Sharpe Ratio**](#-definice-sharpe-ratio)
-    - [⚙️ **Matematický vzorec:**](#️-matematický-vzorec)
-    - [📊 **Příklad:**](#-příklad-4)
-    - [📈 **Jak interpretovat hodnoty**](#-jak-interpretovat-hodnoty)
-    - [🧠 **Intuitivně:**](#-intuitivně)
-    - [💡 **Proč je důležité:**](#-proč-je-důležité)
-    - [📚 **Příklad výpočtu v Pythonu:**](#-příklad-výpočtu-v-pythonu)
-    - [📋 **Shrnutí**](#-shrnutí)
+  - [📘 Definice: Sharpe Ratio](#-definice-sharpe-ratio)
+    - [⚙️ Matematický vzorec:](#️-matematický-vzorec)
+    - [📊 Příklad:](#-příklad-4)
+    - [📈 Jak interpretovat hodnoty](#-jak-interpretovat-hodnoty)
+    - [🧠 Intuitivně:](#-intuitivně)
+    - [💡 Proč je důležité:](#-proč-je-důležité)
+    - [📚 Příklad výpočtu v Pythonu:](#-příklad-výpočtu-v-pythonu)
+    - [📋 Shrnutí](#-shrnutí)
 
 
 ## Zhodnocení
@@ -57,7 +57,7 @@ $$
 \text{Drawdown} = \frac{15 000 - 10 000}{15 000} \times 100\% = 33.33\%
 $$
 
-## 🎯 **Winrate (míra úspěšnosti obchodů)**
+## 🎯 Winrate (míra úspěšnosti obchodů)
 
 ### 📘 Definice:
 
@@ -88,7 +88,7 @@ Tedy **45 % obchodů** vydělalo.
 * Proto se vždy hodnotí *spolu s* poměrem **Risk/Reward** 👇
 
 
-## ⚖️ **Risk/Reward Ratio (poměr rizika k výnosu)**
+## ⚖️ Risk/Reward Ratio (poměr rizika k výnosu)
 
 ### 📘 Definice:
 
@@ -113,7 +113,7 @@ $$
 Tedy **na každý ztracený 1 Kč vyděláš průměrně 2.5 Kč**.
 Poměr **2:1 nebo vyšší** se považuje za velmi zdravý.
 
-## 💡 **Jak Winrate a R:R spolu souvisí**
+## 💡 Jak Winrate a R:R spolu souvisí
 
 I strategie s malým winrate může být zisková, pokud má vysoký R:R.
 Ziskovost strategie lze zjednodušeně zapsat jako:
@@ -133,7 +133,7 @@ Pokud EV > 0 → strategie dlouhodobě vydělává 💰
 | Mean reversion   | 70 %    | 1 : 1       | ✅ Mírně zisková |
 | Špatná strategie | 60 %    | 0.5 : 1     | ❌ Ztrátová      |
 
-## 📘 **Definice: Sharpe Ratio**
+## 📘 Definice: Sharpe Ratio
 
 > **Sharpe ratio** měří, jaký *nadvýnos* (zisk nad bezrizikovou sazbou) přináší strategie **v poměru k jejímu riziku (volatilitě)**.
 
@@ -144,7 +144,7 @@ Jinými slovy:
 **Sharpe ratio** (česky *Sharpeho poměr*) je jeden z **nejdůležitějších ukazatelů výkonnosti investiční nebo obchodní strategie**.
 Používají ho fondy, algoritmičtí tradeři i kvantitativní analýzy, protože spojuje **výnos a riziko do jednoho čísla**.
 
-### ⚙️ **Matematický vzorec:**
+### ⚙️ Matematický vzorec:
 
 $$
 S = \frac{R_p - R_f}{\sigma_p}
@@ -157,9 +157,8 @@ kde:
 * $R_f$ = bezriziková úroková míra (např. výnos státních dluhopisů)
 * $\sigma_p$ = směrodatná odchylka výnosů (měří volatilitu / riziko)
 
----
 
-### 📊 **Příklad:**
+### 📊 Příklad:
 
 * Průměrný měsíční výnos strategie: **2 %**
 * Bezriziková sazba: **0.5 %**
@@ -174,35 +173,34 @@ $$
 To znamená, že strategie vydělává **1.5 jednotky výnosu na každou jednotku rizika**.
 
 
-### 📈 **Jak interpretovat hodnoty**
+### 📈 Jak interpretovat hodnoty
 
 | Sharpe Ratio | Kvalita strategie | Interpretace                              |
 | ------------ | ----------------- | ----------------------------------------- |
-| < 0          | ❌ Ztrátová        | Lepší by bylo držet hotovost              |
+| < 0          | ❌ Ztrátová       | Lepší by bylo držet hotovost              |
 | 0 – 1        | ⚠️ Slabá          | Riziko neodpovídá výnosu                  |
-| 1 – 2        | ✅ Dobrá           | Vyvážený poměr rizika a výnosu            |
+| 1 – 2        | ✅ Dobrá          | Vyvážený poměr rizika a výnosu            |
 | 2 – 3        | 💪 Výborná        | Efektivní strategie                       |
 | > 3          | 🚀 Výjimečná      | Typické pro HFT nebo krátkodobé algoritmy |
 
 
-### 🧠 **Intuitivně:**
+### 🧠 Intuitivně:
 
 * Sharpe ratio **roste**, když:
-
   * výnosy jsou stabilní (nízká volatilita),
   * zisk je konzistentní,
   * a drawdowny jsou malé.
 * Když strategie má stejné zisky, ale větší výkyvy → Sharpe ratio **klesne**.
 
 
-### 💡 **Proč je důležité:**
+### 💡 Proč je důležité:
 
 * Umožňuje **porovnat různé strategie** bez ohledu na velikost kapitálu.
 * Pomáhá vybrat „nejefektivnější“ strategii, ne nutně tu s nejvyšším ziskem.
 * Používá se i v optimalizaci portfolií (např. Markowitzova teorie portfolia).
 
 
-### 📚 **Příklad výpočtu v Pythonu:**
+### 📚 Příklad výpočtu v Pythonu:
 
 ```python
 import pandas as pd
@@ -224,7 +222,7 @@ print("Sharpe ratio:", round(sharpe_ratio, 2))
 📈 Tento kód ti ukáže, jak Sharpe ratio přepočítat na roční bázi.
 
 
-### 📋 **Shrnutí**
+### 📋 Shrnutí
 
 | Parametr           | Význam                                   |
 | ------------------ | ---------------------------------------- |

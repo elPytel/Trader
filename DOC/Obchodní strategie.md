@@ -65,7 +65,6 @@
 * 🧠 Turtle Traders story (Richard Dennis experiment)
 * Web: [https://www.trendfollowing.com](https://www.trendfollowing.com)
 
----
 
 ### ⚖️ 2. **Mean Reversion (návrat k průměru)**
 
@@ -97,7 +96,6 @@
 * *Marcos López de Prado – Advances in Financial Machine Learning* (statistická verze)
 * Web: [QuantStart.com](https://www.quantstart.com), [QuantInsti.com](https://www.quantinsti.com)
 
----
 
 ### 💥 3. **Breakout strategie (proražení hranice)**
 
@@ -129,7 +127,6 @@
 * *Linda Bradford Raschke – Street Smarts*
 * YouTube: „Breakout strategy backtest“ + Backtrader tutorials
 
----
 
 ### 📊 4. **Momentum strategie**
 
@@ -152,7 +149,6 @@
 * *Andreas Clenow – Stocks on the Move*
 * Quantopian/Zipline tutorials (pro Python)
 
----
 
 ### 💹 5. **Arbitrážní a párové strategie (Pairs Trading, Stat Arb)**
 
@@ -173,7 +169,6 @@
 * *A Practical Guide to Quantitative Finance Interviews* (příklady cointegrace)
 * Web: *QuantInsti – Pairs Trading Guide*
 
----
 
 ### ⚙️ 6. **Market Making & High-Frequency strategie**
 
@@ -194,7 +189,6 @@ Pro retail tradera spíše **teoretické**, ale dobré pro pochopení mikrostruk
 * *Larry Harris – Trading and Exchanges*
 * *Cartea, Jaimungal – Algorithmic and High-Frequency Trading*
 
----
 
 ## 📊 **Přehled obchodovatelných strategií**
 
