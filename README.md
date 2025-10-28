@@ -12,6 +12,8 @@
       - [Limit Orders](#limit-orders)
   - [Algoritmické obchodování](#algoritmické-obchodování)
     - [Strategie](#strategie)
+      - [Strategie podle délky držení](#strategie-podle-délky-držení)
+      - [Návrh vlastní strategie](#návrh-vlastní-strategie)
     - [Platformy](#platformy)
       - [💻 Pine Script](#-pine-script)
       - [🧠 TradingView](#-tradingview)
@@ -56,6 +58,9 @@ Mapovat celou cestu: od signálu → alert → exekuce → obchodní log → eva
   - [Trader Workstation](Trader_Workstation.md)
 - [Obchodní strategie](./DOC/Obchodní%20strategie.md)
   - [Metriky strategií](./DOC/Metriky%20strategií.md)
+  - [Indikátory](./DOC/Indikátory/Indikátory.md)
+    - [SMA](./DOC/Indikátory/SMA.md)
+    - [EMA](./DOC/Indikátory/EMA.md)
 
 ## Slovníček pojmů
 - **BURZA** - místo, kde se obchoduje s cennými papíry, komoditami, měnami atd. (sjednocuje podmínky prodeje a nákupu mezi brokery na dané burze).
@@ -77,6 +82,8 @@ Mapovat celou cestu: od signálu → alert → exekuce → obchodní log → eva
   - BID - cena, za kterou můžeme prodat aktivum.
 
 - **ETF** - Exchange-Traded Fund, investiční fond obchodovaný na burze (balík akcií), který sleduje výkonnost určitého indexu, komodity nebo **koše** aktiv.
+
+- **ATR** - Average True Range, indikátor volatility měřící průměrný rozsah cenového pohybu za určité období.
 
 Algoritmické obchodování v praxi
 
@@ -121,13 +128,16 @@ Algoritmické obchodování v praxi
 > [!note] Short
 > "Prodat draze a koupit levně." Prodáme aktivum, které nevlastníme, s očekáváním, že jeho cena klesne, a později ho koupíme zpět za nižší cenu.
 
+> [!warning]
+> [Shortování](./DOC/Shortování.md) je rizikovější než longování, protože potenciální ztráty jsou neomezené.
+
 > [!note] Margin
 > Obchodování na páku, kdy si půjčujeme peníze od brokera k většímu objemu obchodů.
 
 > [!note] Stop-Loss
 > "Omezit ztráty." Automatický příkaz k prodeji aktiva, když jeho cena klesne na určitou úroveň.
 
-> [!note] STP Stop
+> [!note] STP
 > STP Stop (Stop Order) - Příkaz k nákupu nebo prodeji aktiva, když jeho cena dosáhne určité úrovně (stop ceny), který se pak stává tržním příkazem.
 
 > [!note] Profit Target
@@ -164,6 +174,18 @@ LMT (Limit Order) - Limitní příkaz - Příkaz k nákupu nebo prodeji aktiva z
 ### Strategie
 
 [Obchodní strategie](./DOC/Obchodn%C3%AD%20strategie.md)
+
+#### Strategie podle délky držení
+
+- **Intraday strategie** — otevírání a zavírání pozic během jednoho obchodního *dne* (např. skalpování, momentum trading).
+- **Swing trading** — držení pozic několik dní až *týdnů*, využívání střednědobých trendů.
+- **Position trading** — dlouhodobé držení pozic týdny až *měsíce*, zaměřené na hlavní trendy.
+
+#### Návrh vlastní strategie
+
+Přístupy:
+- **Data-first**: Analyzuj historická data, hledej vzory a na jejich základě navrhni pravidla. Data mining, statistická analýza.
+- **Idea-first**: Začni s obchodní myšlenkou (např. sledování trendu) a otestuj ji na datech.
 
 ### Platformy
 

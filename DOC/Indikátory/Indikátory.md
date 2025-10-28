@@ -28,7 +28,7 @@ Neví nic o budoucnosti, pouze **popisuje minulost** nebo **usnadňuje interpret
 | --------------------------- | ---------------------------- | --------------------------------------- | ---------------------------------------------- |
 | **Trendové**                | Směr a sílu trendu           | [SMA](SMA.md), [EMA](EMA.md), MACD, ADX, Parabolic SAR      | Určování, jestli trh roste nebo klesá          |
 | **Momentum / Oscilátory**   | Rychlost a sílu pohybu       | RSI, Stochastic, CCI, ROC               | Hledání překoupenosti/přeprodanosti            |
-| **Volatilita**              | Proměnlivost ceny            | Bollinger Bands, ATR, Keltner Channels  | Určení velikosti pohybů, vhodné pro stop-lossy |
+| **Volatilita**              | Proměnlivost ceny            | [Bollinger Bands](Bollinger%20Bands.md), ATR, Keltner Channels  | Určení velikosti pohybů, vhodné pro stop-lossy |
 | **Objemové**                | Aktivitu účastníků           | OBV, Volume Profile, Accum/Distribution | Sleduje „sílu“ pohybu podle objemu             |
 | **Statistické / Pokročilé** | Odchylky od normálu, průměru | Z-score, Linear Regression, z-skalování | Mean reversion, arbitrážní strategie           |
 
