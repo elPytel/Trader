@@ -8,8 +8,9 @@
   - [📈 4. **Typické chyby s indikátory**](#-4-typické-chyby-s-indikátory)
   - [📐 5. **Lagging vs. Leading indikátory**](#-5-lagging-vs-leading-indikátory)
   - [🧩 6. **Jak indikátor vybírat**](#-6-jak-indikátor-vybírat)
-  - [🧪 7. **Testování indikátorů**](#-7-testování-indikátorů)
-  - [📚 8. **Kde se naučit víc**](#-8-kde-se-naučit-víc)
+  - [Úprava indikátorů](#úprava-indikátorů)
+  - [🧪 Testování indikátorů](#-testování-indikátorů)
+  - [Kde se naučit víc](#kde-se-naučit-víc)
 
 
 ## 🧠 1. **Co indikátory ve skutečnosti jsou**
@@ -88,8 +89,13 @@ Když přemýšlíš, který indikátor použít, zeptej se:
 * Breakout → Donchian Channels + ATR
 * Momentum → Rate of Change + Ranking
 
+## Úprava indikátorů
 
-## 🧪 7. **Testování indikátorů**
+Změna timeframe vyžaduje **úpravu parametrů indikátorů**.
+
+[Dopad změny timeframe na indikátor](Dopad%20změny%20timeframe%20na%20indikátor.md)
+
+## 🧪 Testování indikátorů
 
 Používej backtesting:
 
@@ -97,8 +103,7 @@ Používej backtesting:
 * Metoda: testuj indikátor s definovanými pravidly (např. RSI<30 = long, RSI>70 = close)
 * Sleduj: Winrate, Sharpe ratio, Max drawdown, Profit factor
 
-
-## 📚 8. **Kde se naučit víc**
+## Kde se naučit víc
 
 | Oblast                        | Doporučené zdroje                                            |
 | ----------------------------- | ------------------------------------------------------------ |
