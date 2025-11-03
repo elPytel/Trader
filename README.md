@@ -85,7 +85,7 @@ Mapovat celou cestu: od signálu → alert → exekuce → obchodní log → eva
 
 - **ATR** - Average True Range, indikátor volatility měřící průměrný rozsah cenového pohybu za určité období.
 
-Algoritmické obchodování v praxi
+- **hedging** - zajištění proti riziku cenových pohybů na trhu pomocí opačných pozic nebo derivátů. "Hedging" (zajištění) je první linie obrany proti riziku.
 
 ## Diskreční obchodování
 ![price patterns](https://s3.tradingview.com/n/nbQ5AqfN_mid.webp)

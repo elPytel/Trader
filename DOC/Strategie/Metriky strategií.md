@@ -144,6 +144,8 @@ Jinými slovy:
 **Sharpe ratio** (česky *Sharpeho poměr*) je jeden z **nejdůležitějších ukazatelů výkonnosti investiční nebo obchodní strategie**.
 Používají ho fondy, algoritmičtí tradeři i kvantitativní analýzy, protože spojuje **výnos a riziko do jednoho čísla**.
 
+[🎥youtube: The Sharpe Ratio Explained](https://www.youtube.com/watch?v=9HD6xo2iO1g)
+
 ### ⚙️ Matematický vzorec:
 
 $$
