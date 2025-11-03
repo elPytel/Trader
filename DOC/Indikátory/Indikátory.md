@@ -22,7 +22,6 @@ Neví nic o budoucnosti, pouze **popisuje minulost** nebo **usnadňuje interpret
 
 > Indikátor neříká, co se *stane*, ale pomáhá ti lépe pochopit, co se *děje*.
 
-
 ## ⚙️ 2. **Základní dělení indikátorů**
 
 | Kategorie                   | Co měří                      | Příklady                                | Typický účel                                   |

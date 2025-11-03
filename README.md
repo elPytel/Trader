@@ -54,13 +54,13 @@ Mapovat celou cestu: od signálu → alert → exekuce → obchodní log → eva
 ## Rozcestí
 
 - [Python Flask aplikace](Flask_aplikace.md)
-- [IBKR - Interactive Brokers](IBKR.md)
-  - [Trader Workstation](Trader_Workstation.md)
-- [Obchodní strategie](./DOC/Obchodní%20strategie.md)
-  - [Metriky strategií](./DOC/Metriky%20strategií.md)
-  - [Indikátory](./DOC/Indikátory/Indikátory.md)
-    - [SMA](./DOC/Indikátory/SMA.md)
-    - [EMA](./DOC/Indikátory/EMA.md)
+- [IBKR - Interactive Brokers](./DOC/IBKR.md)
+  - [Trader Workstation](./DOC/Trader_Workstation.md)
+- [Indikátory](./DOC/Indikátory/Indikátory.md)
+  - [SMA](./DOC/Indikátory/SMA.md)
+  - [EMA](./DOC/Indikátory/EMA.md)
+- [Obchodní strategie](./DOC/Strategie/Obchodní%20strategie.md)
+  - [Metriky strategií](./DOC/Strategie/Metriky%20strategií.md)
 
 ## Slovníček pojmů
 - **BURZA** - místo, kde se obchoduje s cennými papíry, komoditami, měnami atd. (sjednocuje podmínky prodeje a nákupu mezi brokery na dané burze).
@@ -129,7 +129,7 @@ Algoritmické obchodování v praxi
 > "Prodat draze a koupit levně." Prodáme aktivum, které nevlastníme, s očekáváním, že jeho cena klesne, a později ho koupíme zpět za nižší cenu.
 
 > [!warning]
-> [Shortování](./DOC/Shortování.md) je rizikovější než longování, protože potenciální ztráty jsou neomezené.
+> [Shortování](./DOC/Strategie/Shortování.md) je rizikovější než longování, protože potenciální ztráty jsou neomezené.
 
 > [!note] Margin
 > Obchodování na páku, kdy si půjčujeme peníze od brokera k většímu objemu obchodů.
@@ -173,7 +173,7 @@ LMT (Limit Order) - Limitní příkaz - Příkaz k nákupu nebo prodeji aktiva z
 
 ### Strategie
 
-[Obchodní strategie](./DOC/Obchodn%C3%AD%20strategie.md)
+[Obchodní strategie](./DOC/Strategie/Obchodní%20strategie.md)
 
 #### Strategie podle délky držení
 
@@ -272,7 +272,7 @@ Pine Script je jazyk pro skriptování, který se používá v TradingView pro v
 
 ## IBKR - Interactive Brokers
 
-[IBKR - Interactive Brokers](IBKR.md)
+[IBKR - Interactive Brokers](./DOC/IBKR.md)
 
 ### IBKR API
 
