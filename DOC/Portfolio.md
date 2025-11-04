@@ -13,6 +13,7 @@
     - [Position sizing](#position-sizing)
     - [Váhy systémů v portfoliu](#váhy-systémů-v-portfoliu)
     - [Překrytí obchodů](#překrytí-obchodů)
+    - [Hedging (zajištění rizika)](#hedging-zajištění-rizika)
 
 
 ## Metriky portfolia
@@ -56,6 +57,9 @@ Maximální drawdown portfolia má vazbu na volatilitu portfolia přibližně **
 Doba kdy účet nevytváří nové maximum.
 
 Vylepšíme přidáním dalších nekorelovaných strategií do portfolia. Cílem je mít průměrnou délku drawdownu pod **100 dní**.
+
+> [!tip]
+> Překrývajícíc se graf: procentuální pokles hodnoty vs čas v dnech udávající délku drawdownu.
 
 ### Benchmark
 

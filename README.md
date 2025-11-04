@@ -53,7 +53,7 @@
 Mapovat celou cestu: od signálu → alert → exekuce → obchodní log → evaluace
 ## Rozcestí
 
-- [Python Flask aplikace](Flask_aplikace.md)
+- [Python Flask aplikace](./web-python/Flask_aplikace.md)
 - [IBKR - Interactive Brokers](./DOC/IBKR.md)
   - [Trader Workstation](./DOC/Trader_Workstation.md)
 - [Indikátory](./DOC/Indikátory/Indikátory.md)

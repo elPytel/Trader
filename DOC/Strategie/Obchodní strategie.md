@@ -2,14 +2,14 @@
 - [Obchodní strategie pro algoritmické obchodování](#obchodní-strategie-pro-algoritmické-obchodování)
   - [📘 Doporučené obecné zdroje pro všechny typy](#-doporučené-obecné-zdroje-pro-všechny-typy)
   - [Typy obchodních strategií](#typy-obchodních-strategií)
-    - [🧭 1. **Trend-Following (sledování trendu)**](#-1-trend-following-sledování-trendu)
-    - [⚖️ 2. **Mean Reversion (návrat k průměru)**](#️-2-mean-reversion-návrat-k-průměru)
-    - [💥 3. **Breakout strategie (proražení hranice)**](#-3-breakout-strategie-proražení-hranice)
-    - [📊 4. **Momentum strategie**](#-4-momentum-strategie)
-    - [💹 5. **Arbitrážní a párové strategie (Pairs Trading, Stat Arb)**](#-5-arbitrážní-a-párové-strategie-pairs-trading-stat-arb)
-    - [⚙️ 6. **Market Making \& High-Frequency strategie**](#️-6-market-making--high-frequency-strategie)
-  - [📊 **Přehled obchodovatelných strategií**](#-přehled-obchodovatelných-strategií)
-    - [📈 **Doplňkové poznámky**](#-doplňkové-poznámky)
+    - [🧭 Trend-Following (sledování trendu)](#-trend-following-sledování-trendu)
+    - [⚖️ Mean Reversion (návrat k průměru)](#️-mean-reversion-návrat-k-průměru)
+    - [💥 Breakout strategie (proražení hranice)](#-breakout-strategie-proražení-hranice)
+    - [📊 Momentum strategie](#-momentum-strategie)
+    - [💹 Arbitrážní a párové strategie (Pairs Trading, Stat Arb)](#-arbitrážní-a-párové-strategie-pairs-trading-stat-arb)
+    - [⚙️ Market Making \& High-Frequency strategie](#️-market-making--high-frequency-strategie)
+  - [📊 Přehled obchodovatelných strategií](#-přehled-obchodovatelných-strategií)
+    - [Význam sloupců (metrik):](#význam-sloupců-metrik)
 
 
 ## 📘 Doporučené obecné zdroje pro všechny typy
@@ -33,7 +33,7 @@
 
 ## Typy obchodních strategií
 
-### 🧭 1. **Trend-Following (sledování trendu)**
+### 🧭 Trend-Following (sledování trendu)
 
 **Myšlenka:**
 
@@ -66,7 +66,7 @@
 * Web: [https://www.trendfollowing.com](https://www.trendfollowing.com)
 
 
-### ⚖️ 2. **Mean Reversion (návrat k průměru)**
+### ⚖️ Mean Reversion (návrat k průměru)
 
 **Myšlenka:**
 
@@ -97,7 +97,7 @@
 * Web: [QuantStart.com](https://www.quantstart.com), [QuantInsti.com](https://www.quantinsti.com)
 
 
-### 💥 3. **Breakout strategie (proražení hranice)**
+### 💥 Breakout strategie (proražení hranice)
 
 **Myšlenka:**
 
@@ -128,7 +128,7 @@
 * YouTube: „Breakout strategy backtest“ + Backtrader tutorials
 
 
-### 📊 4. **Momentum strategie**
+### 📊 Momentum strategie
 
 **Myšlenka:**
 
@@ -150,7 +150,7 @@
 * Quantopian/Zipline tutorials (pro Python)
 
 
-### 💹 5. **Arbitrážní a párové strategie (Pairs Trading, Stat Arb)**
+### 💹 Arbitrážní a párové strategie (Pairs Trading, Stat Arb)
 
 **Myšlenka:**
 
@@ -170,7 +170,7 @@
 * Web: *QuantInsti – Pairs Trading Guide*
 
 
-### ⚙️ 6. **Market Making & High-Frequency strategie**
+### ⚙️ Market Making & High-Frequency strategie
 
 **Myšlenka:**
 
@@ -190,7 +190,7 @@ Pro retail tradera spíše **teoretické**, ale dobré pro pochopení mikrostruk
 * *Cartea, Jaimungal – Algorithmic and High-Frequency Trading*
 
 
-## 📊 **Přehled obchodovatelných strategií**
+## 📊 Přehled obchodovatelných strategií
 
 | Typ strategie                            | Hlavní princip                                 | Typické indikátory / přístupy                           | Vhodné trhy           | Typický timeframe  | Winrate | Risk/Reward    | Výhody                                          | Nevýhody                                   |
 | ---------------------------------------- | ---------------------------------------------- | ------------------------------------------------------- | --------------------- | ------------------ | ------- | -------------- | ----------------------------------------------- | ------------------------------------------ |
@@ -204,7 +204,7 @@ Pro retail tradera spíše **teoretické**, ale dobré pro pochopení mikrostruk
 | **Portfolio / kvantitativní alokace**    | Diverzifikace strategií, minimalizace korelace | Markowitz, Black-Litterman, risk parity                 | ETF, indexy           | Týdny – měsíce     | 55–65 % | 1.5–3 : 1      | Nízká volatilita, stabilní růst                 | Složitější řízení korelace strategií       |
 
 
-### 📈 **Doplňkové poznámky**
+### Význam sloupců (metrik):
 
 [Metriky strategií](Metriky%20strategi%C3%AD.md)
 
