@@ -2,6 +2,7 @@
 
 - [Portfolio](#portfolio)
   - [Metriky portfolia](#metriky-portfolia)
+    - [Equity křivka portfolia (graf hodnoty účtu v čase)](#equity-křivka-portfolia-graf-hodnoty-účtu-v-čase)
     - [Využití kapitálu](#využití-kapitálu)
     - [Korelace strategií](#korelace-strategií)
     - [Denní volatilita portfolia](#denní-volatilita-portfolia)
@@ -17,6 +18,13 @@
 
 
 ## Metriky portfolia
+
+### Equity křivka portfolia (graf hodnoty účtu v čase)
+
+Hodnota účtu v čase.
+
+> [!note]
+> Tabulka: měsíční výnosy portfolia (sloupce). Roky (řádky).
 
 ### Využití kapitálu
 
@@ -67,6 +75,9 @@ Porovnání výkonnosti portfolia s benchmarkem (např. S&P 500, BTCUSD, Gold).
 
 Pro informativní účely je dobré mít srovnání výkonnosti našeho portfolia s nějakým benchmarkem. Umožní nám ti lépe posoudit, jak si naše strategie vedou v porovnání s trhem jako celkem. A zda by jsme neudělali lépe, kdyby jsme prostě jen koupili a drželi daný benchmark.
 
+
+> [!tip]
+> Graf: výkonnostní křivky strategie vs benchmark (v logaritmickém měřítku).
 
 ## Skládání portfolia
 
